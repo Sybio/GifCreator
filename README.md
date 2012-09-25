@@ -16,7 +16,7 @@ This class helps you to create an animated GIF image: give multiple images and t
 
 ```php
 // Create an array containing file paths, resource var (initialized with imagecreatefromXXX), 
-// image URL (or even binary code of an image file).
+// image URLs or even binary code from image files.
 // All sorted in order to appear.
 $frames = array(
     imagecreatefrompng("/../images/pic1.png"), // Resource var
