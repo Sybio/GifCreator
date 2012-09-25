@@ -130,9 +130,7 @@ class GifCreator
 				}
 			}
 		}
-        
-        
-        
+		
 		$this->gifAddHeader();
         
 		for ($i = 0; $i < count($this->frameSources); $i++) {
