@@ -78,9 +78,8 @@ class GifCreator
 	public function create($GIF_src, $GIF_dly, $GIF_lop, $GIF_dis, $GIF_red, $GIF_grn, $GIF_blu, $GIF_mod)
     {
 		if (!is_array($GIF_src) && !is_array($GIF_tim)) {
-		  
-			printf('%s: %s', $this->version, $this->errors['ERR00']);
-			exit(0);
+            
+            throw new \Exception($this->version.': '.$this->errors['ERR00']);
 		}
         
 		$this->lop = ($GIF_lop > -1) ? $GIF_lop : 0;
@@ -98,15 +97,13 @@ class GifCreator
 				$this->frameSources[] = $GIF_src[$i];
                 
 			} else {
-			 
-				printf('%s: %s ( %s )!', $this->version, $this->errors['ERR02'], $GIF_mod);
-				exit(0);
+                
+                throw new \Exception($this->version.': '.$this->errors['ERR02'].' ('.$GIF_mod.')');
 			}
             
 			if (substr($this->frameSources[$i], 0, 6) != 'GIF87a' && substr($this->frameSources[$i], 0, 6) != 'GIF89a') {
 			 
-				printf('%s: %d %s', $this->version, $i, $this->errors['ERR01']);
-				exit(0);
+                throw new \Exception($this->version.': '.$i.' '.$this->errors['ERR01']);
 			}
             
 			for ($j = (13 + 3 * (2 << (ord($this->frameSources[$i] { 10 }) & 0x07))), $k = TRUE; $k; $j++) {
@@ -116,17 +113,16 @@ class GifCreator
 					case '!':
                     
 						if ((substr($this->frameSources[$i], ($j + 3), 8)) == 'NETSCAPE') {
-						  
-							printf('%s: %s ( %s source )!', $this->version, $this->errors['ERR03'], ($i + 1));
-							exit(0);
+                            
+                            throw new \Exception($this->version.': '.$this->errors['ERR03'].' ('.($i + 1).' source).');
 						}
                         
-						break;
+					break;
                         
 					case ';':
                     
 						$k = false;
-						break;
+					break;
 				}
 			}
 		}
@@ -204,13 +200,15 @@ class GifCreator
             
 				$Locals_img = substr($Locals_tmp, 8, 10);
 				$Locals_tmp = substr($Locals_tmp, 18, strlen($Locals_tmp) - 18);
-				break;
+                                
+			break;
                 
 			case ',':
             
 				$Locals_img = substr($Locals_tmp, 0, 10);
 				$Locals_tmp = substr($Locals_tmp, 10, strlen($Locals_tmp) - 10);
-				break;
+                                
+			break;
 		}
         
 		if (ord($this->frameSources[$i] { 10 }) & 0x80 && $this->imgBuilt) {
