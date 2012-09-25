@@ -1,0 +1,21 @@
+{
+    "name": "sybio/gif-creator",
+    "type": "library",
+    "description": "PHP class that creates animated GIF from multiple images",
+    "keywords": ["gif", "animated", "creation", "encode", "PHP"],
+    "homepage": "https://github.com/Sybio/GifCreator",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Clément Guillemain",
+            "homepage": "http://clementguillemain.fr",
+            "role": "Developer / Freelancer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "psr-0": { "GifCreator": "src" }
+    }
+}
