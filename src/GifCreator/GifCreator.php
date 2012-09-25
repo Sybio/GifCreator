@@ -2,7 +2,7 @@
 /**
  * Create an animated GIF from multiple images
  * 
- * @version Under development
+ * @version 1.0
  * @link https://github.com/Sybio/GifCreator
  * @author Sybio (Clément Guillemain  / @Sybio01)
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
@@ -76,13 +76,10 @@ class GifCreator
      * @param array $frames An array of frame: can be file paths, resource image variables, binary sources or image URLs
      * @param array $durations An array containing the duration of each frame
      * @param integer $loop Number of GIF loops before stopping animation (Set 0 to get an infinite loop)
-     * @param integer $red
-     * @param integer $green
-     * @param integer $blue
      * 
      * @return string The GIF string source
      */
-	public function create($frames = array(), $durations = array(), $loop = 0, $red = 0, $green = 0, $blue = 0)
+	public function create($frames = array(), $durations = array(), $loop = 0)
     {
 		if (!is_array($frames) && !is_array($GIF_tim)) {
             
@@ -91,11 +88,12 @@ class GifCreator
         
 		$this->loop = ($loop > -1) ? $loop : 0;
 		$this->dis = 2;
-		$this->colour = ($red > -1 && $green > -1 && $blue > -1) ? ($red | ($green << 8) | ($blue << 16)) : -1;
-
+        
 		for ($i = 0; $i < count($frames); $i++) {
 		  
 			if (is_resource($frames[$i])) { // Resource var
+                
+                $resourceImg = $frames[$i];
                 
                 ob_start();
                 imagegif($frames[$i]);
@@ -106,11 +104,13 @@ class GifCreator
 			     
                 if (file_exists($frames[$i]) || filter_var($frames[$i], FILTER_VALIDATE_URL)) { // File path
                     
-                    $frames[$i] = file_get_contents($frames[$i]);
+                    $frames[$i] = file_get_contents($frames[$i]);                    
                 }
-
+                
+                $resourceImg = imagecreatefromstring($frames[$i]);
+                
                 ob_start();
-                imagegif(imagecreatefromstring($frames[$i]));
+                imagegif($resourceImg);
                 $this->frameSources[] = ob_get_contents();
                 ob_end_clean();
                  
@@ -118,6 +118,11 @@ class GifCreator
                 
                 throw new \Exception($this->version.': '.$this->errors['ERR02'].' ('.$mode.')');
 			}
+            
+            if ($i == 0) {
+                
+                $colour = imagecolortransparent($resourceImg);
+            }
             
 			if (substr($this->frameSources[$i], 0, 6) != 'GIF87a' && substr($this->frameSources[$i], 0, 6) != 'GIF89a') {
 			 
@@ -143,8 +148,20 @@ class GifCreator
 					break;
 				}
 			}
+            
+            unset($resourceImg);
 		}
 		
+        if (isset($colour)) {
+            
+            $this->colour = $colour;
+                                    
+        } else {
+            
+            $red = $green = $blue = 0;
+            $this->colour = ($red > -1 && $green > -1 && $blue > -1) ? ($red | ($green << 8) | ($blue << 16)) : -1;
+        }
+        
 		$this->gifAddHeader();
         
 		for ($i = 0; $i < count($this->frameSources); $i++) {
