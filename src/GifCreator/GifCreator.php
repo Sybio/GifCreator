@@ -73,7 +73,7 @@ class GifCreator
 	/**
      * Create the GIF string (old: GIFEncoder)
      * 
-     * @param array $frames An array of frame sources or resource images or image URLs
+     * @param array $frames An array of frame: can be file paths, resource image variables, binary sources or image URLs
      * @param array $durations An array containing the duration of each frame
      * @param integer $loop Number of GIF loops before stopping animation (Set 0 to get an infinite loop)
      * @param integer $red
@@ -102,14 +102,18 @@ class GifCreator
                 $this->frameSources[] = ob_get_contents();
                 ob_end_clean();
                 
-            } elseif (is_string($frames[$i]) && filter_var($frames[$i], FILTER_VALIDATE_URL)) { // Given URL
-                
-                $this->frameSources[] = fread(fopen($frames[$i], 'rb'), filesize($frames[$i]));
-                
-			} elseif (is_string($frames[$i])) { // Binary source code
-			 
-				$this->frameSources[] = $frames[$i];
-                
+            } elseif (is_string($frames[$i])) { // File path or URL or Binary source code
+			     
+                if (file_exists($frames[$i]) || filter_var($frames[$i], FILTER_VALIDATE_URL)) { // File path
+                    
+                    $frames[$i] = file_get_contents($frames[$i]);
+                }
+
+                ob_start();
+                imagegif(imagecreatefromstring($frames[$i]));
+                $this->frameSources[] = ob_get_contents();
+                ob_end_clean();
+                 
 			} else { // Fail
                 
                 throw new \Exception($this->version.': '.$this->errors['ERR02'].' ('.$mode.')');

@@ -18,10 +18,10 @@ This class helps you to create an animated GIF image: give multiple images and t
 // Create an array containing resource var (initialized with imagecreatefromXXX), image URL (or even binary code of an image file),
 // sorted in order to appear.
 $frames = array(
-    imagecreatefrompng(__DIR__."/../images/pic1.png"),
-    imagecreatefrompng(__DIR__."/../images/pic2.png"),
-    imagecreatefromjpeg(__DIR__."/../images/pic3.jpg"),
-    'http://thisisafakedomain.com/images/pic4.jpg',
+    imagecreatefrompng("/../images/pic1.png"), // Resource var
+    "/../images/pic2.png", // Image file path
+    file_get_contents("/../images/pic3.jpg"), // Binary source code
+    'http://thisisafakedomain.com/images/pic4.jpg', // URL
 );
 
 // Create an array containing the duration (in millisecond) of each frames (in order too)
