@@ -31,9 +31,9 @@ class GifCreator
 	private $frameSources;
     
     /**
-     * @var integer Gif lop (old: this->LOP)
+     * @var integer Gif loop (old: this->LOP)
      */
-	private $lop;
+	private $loop;
     
     /**
      * @var integer Gif dis (old: this->DIS)
@@ -65,7 +65,7 @@ class GifCreator
         $this->errors = array(
             'ERR00' => 'Does not supported function for only one image.',
     		'ERR01' => 'Source is not a GIF image.',
-    		'ERR02' => 'Unintelligible flag.',
+    		'ERR02' => 'You have to give resource image variables, image URL or image binary sources in $frames array.',
     		'ERR03' => 'Does not make animation from animated GIF source.',
         );
     }
@@ -73,32 +73,46 @@ class GifCreator
 	/**
      * Create the GIF string (old: GIFEncoder)
      * 
+     * @param array $frames An array of frame sources or resource images or image URLs
+     * @param array $durations An array containing the duration of each frame
+     * @param integer $loop Number of GIF loops before stopping animation (Set 0 to get an infinite loop)
+     * @param integer $red
+     * @param integer $green
+     * @param integer $blue
+     * 
      * @return string The GIF string source
      */
-	public function create($GIF_src, $GIF_dly, $GIF_lop, $GIF_dis, $GIF_red, $GIF_grn, $GIF_blu, $GIF_mod)
+	public function create($frames = array(), $durations = array(), $loop = 0, $red = 0, $green = 0, $blue = 0)
     {
-		if (!is_array($GIF_src) && !is_array($GIF_tim)) {
+		if (!is_array($frames) && !is_array($GIF_tim)) {
             
             throw new \Exception($this->version.': '.$this->errors['ERR00']);
 		}
         
-		$this->lop = ($GIF_lop > -1) ? $GIF_lop : 0;
-		$this->dis = ($GIF_dis > -1) ? (($GIF_dis < 3) ? $GIF_dis : 3) : 2;
-		$this->colour = ($GIF_red > -1 && $GIF_grn > -1 && $GIF_blu > -1) ? ($GIF_red | ($GIF_grn << 8) | ($GIF_blu << 16)) : -1;
+		$this->loop = ($loop > -1) ? $loop : 0;
+		$this->dis = 2;
+		$this->colour = ($red > -1 && $green > -1 && $blue > -1) ? ($red | ($green << 8) | ($blue << 16)) : -1;
 
-		for ($i = 0; $i < count($GIF_src); $i++) {
+		for ($i = 0; $i < count($frames); $i++) {
 		  
-			if (strToLower($GIF_mod ) == 'url') {
+			if (is_resource($frames[$i])) { // Resource var
+                
+                ob_start();
+                imagegif($frames[$i]);
+                $this->frameSources[] = ob_get_contents();
+                ob_end_clean();
+                
+            } elseif (is_string($frames[$i]) && filter_var($frames[$i], FILTER_VALIDATE_URL)) { // Given URL
+                
+                $this->frameSources[] = fread(fopen($frames[$i], 'rb'), filesize($frames[$i]));
+                
+			} elseif (is_string($frames[$i])) { // Binary source code
 			 
-				$this->frameSources[] = fread(fopen($GIF_src[$i], 'rb'), filesize($GIF_src[$i]));
+				$this->frameSources[] = $frames[$i];
                 
-			} elseif (strToLower($GIF_mod) == 'bin') {
-			 
-				$this->frameSources[] = $GIF_src[$i];
+			} else { // Fail
                 
-			} else {
-                
-                throw new \Exception($this->version.': '.$this->errors['ERR02'].' ('.$GIF_mod.')');
+                throw new \Exception($this->version.': '.$this->errors['ERR02'].' ('.$mode.')');
 			}
             
 			if (substr($this->frameSources[$i], 0, 6) != 'GIF87a' && substr($this->frameSources[$i], 0, 6) != 'GIF89a') {
@@ -131,7 +145,7 @@ class GifCreator
         
 		for ($i = 0; $i < count($this->frameSources); $i++) {
 		  
-			$this->addGifFrames($i, $GIF_dly[$i]);
+			$this->addGifFrames($i, $durations[$i]);
 		}
         
 		$this->gifAddFooter();
@@ -155,7 +169,7 @@ class GifCreator
 
 			$this->gif .= substr($this->frameSources[0], 6, 7);
 			$this->gif .= substr($this->frameSources[0], 13, $cmap);
-			$this->gif .= "!\377\13NETSCAPE2.0\3\1".$this->encodeAsciiToChar($this->lop)."\0";
+			$this->gif .= "!\377\13NETSCAPE2.0\3\1".$this->encodeAsciiToChar($this->loop)."\0";
 		}
 	}
     
@@ -299,7 +313,7 @@ class GifCreator
         $this->frameSources;
         $this->gif = 'GIF89a'; // the GIF header
         $this->imgBuilt = false;
-        $this->lop = 0;
+        $this->loop = 0;
         $this->dis = 2;
         $this->colour = -1;
     }
