@@ -35,10 +35,10 @@ In the previous example, I chose 5 loops. Set 0 (zero) to get an infinite loop.
 
 **2 - Get the result:**
 
-You can now get the animated GIF binary
+You can now get the animated GIF binary:
 
 ```php
-    $gifBinary = $gc->getGif();
+$gifBinary = $gc->getGif();
 ```
 
 Then you can show it in the navigator:
