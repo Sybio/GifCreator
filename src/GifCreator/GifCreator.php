@@ -66,7 +66,7 @@ class GifCreator
         // Static data
         $this->version = 'GifCreator: Under development';
         $this->errors = array(
-            'ERR00' => 'Does not supported function for only one image.',
+            'ERR00' => 'Does not support single image/duration input.',
             'ERR01' => 'Source is not a GIF image.',
             'ERR02' => 'You have to give resource image variables, image URL or image binary sources in $frames array.',
             'ERR03' => 'Does not make animation from animated GIF source.',
@@ -77,7 +77,7 @@ class GifCreator
      * Create the GIF string (old: GIFEncoder)
      *
      * @param array $frames An array of frame: can be file paths, resource image variables, binary sources or image URLs
-     * @param array $durations An array containing the duration of each frame
+     * @param array $durations An array containing the duration of each frame (in centiseconds)
      * @param integer $loop Number of GIF loops before stopping animation (Set 0 to get an infinite loop)
      *
      * @return string The GIF string source
