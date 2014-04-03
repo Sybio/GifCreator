@@ -84,7 +84,7 @@ class GifCreator
      */
 	public function create($frames = array(), $durations = array(), $loop = 0)
     {
-		if (!is_array($frames) && !is_array($GIF_tim)) {
+		if (!is_array($frames) && !is_array($durations)) {
             
             throw new \Exception($this->version.': '.$this->errors['ERR00']);
 		}
