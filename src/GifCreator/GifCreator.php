@@ -168,8 +168,12 @@ class GifCreator
 		$this->gifAddHeader();
         
 		for ($i = 0; $i < count($this->frameSources); $i++) {
-		  
-			$this->addGifFrames($i, $durations[$i]);
+			$frameduration = $durations[0];
+			
+			if(count($durations) > 1)
+				$frameduration = $durations[$i];
+
+			$this->addGifFrames($i, $frameduration);
 		}
         
 		$this->gifAddFooter();
