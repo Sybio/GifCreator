@@ -84,7 +84,7 @@ class GifCreator
      */
 	public function create($frames = array(), $durations = array(), $loop = 0)
     {
-		if (!is_array($frames) && !is_array($GIF_tim)) {
+		if (!is_array($frames) && !is_array($durations)) {
             
             throw new \Exception($this->version.': '.$this->errors['ERR00']);
 		}
@@ -168,8 +168,12 @@ class GifCreator
 		$this->gifAddHeader();
         
 		for ($i = 0; $i < count($this->frameSources); $i++) {
-		  
-			$this->addGifFrames($i, $durations[$i]);
+			$frameduration = $durations[0];
+			
+			if(count($durations) > 1)
+				$frameduration = $durations[$i];
+
+			$this->addGifFrames($i, $frameduration);
 		}
         
 		$this->gifAddFooter();
