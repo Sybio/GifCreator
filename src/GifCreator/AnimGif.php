@@ -2,6 +2,7 @@
 
 /* CHANGES by lunakid:
 TODO:
+! Anim delay does not seem to be 40 ms by default...
 ! The raw GIF return example is broken in the README.
 ! ERR01 is 'Source is not a GIF image.', but there's a .png in the examples!
 	-> It does support non-GIF files actually!
