@@ -69,12 +69,12 @@ file_put_contents('/myfolder/animated_picture.gif', $gifBinary);
 - The dimensions of the generated GIF are based on the first frame. If you need to resize your frames to get the same dimension, you can use 
 this class: https://github.com/Sybio/ImageWorkshop
 
-### Credits
-
-* László Zsidi: Important parts of his "GIFEncoder.class.php" by have been reused. (Thanks, Laci!)
-* Clément Guillemain: for the very handy, redesigned (& "classified") API, extensions and nice docs.
-
 ### Dependencies
 
 * PHP 5.3 (for namespace support)
 * GD (`imagecreatefromstring`, `imagecolortransparent` etc.)
+
+### Credits
+
+* László Zsidi: Important parts of his "GIFEncoder.class.php" by have been reused. (Thanks, Laci!)
+* Clément Guillemain: for the very handy, redesigned (& "classified") API, extensions and nice docs.
