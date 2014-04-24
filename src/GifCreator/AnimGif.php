@@ -3,10 +3,11 @@
 /* CHANGES by lunakid:
 TODO:
 ! Anim delay does not seem to be 40 ms by default...
-! The raw GIF return example is broken in the README.
 ! ERR01 is 'Source is not a GIF image.', but there's a .png in the examples!
 	-> It does support non-GIF files actually!
 DONE:
++ The raw GIF return example is broken in the README.
+	(It was not caused by this code.)
 + create() should iterate $frames with foreach() not for assuming direct
   indexes from 0 to < count. 
   (The array keys can be anything, and should not affect the results.)
@@ -251,7 +252,7 @@ class AnimGif
 		$Global_len = 2 << (ord($this->frameSources[0 ] { 10 }) & 0x07);
 		$Locals_len = 2 << (ord($this->frameSources[$i] { 10 }) & 0x07);
 
-		$Global_rgb = substr($this->frameSources[0], 13, 3 * (2 << (ord($this->frameSources[0] { 10 }) & 0x07)));
+		$Global_rgb = substr($this->frameSources[ 0], 13, 3 * (2 << (ord($this->frameSources[ 0] { 10 }) & 0x07)));
 		$Locals_rgb = substr($this->frameSources[$i], 13, 3 * (2 << (ord($this->frameSources[$i] { 10 }) & 0x07)));
 
 		$Locals_ext = "!\xF9\x04".chr(($this->dis << 2) + 0).chr(($d >> 0 ) & 0xFF).chr(($d >> 8) & 0xFF)."\x0\x0";
