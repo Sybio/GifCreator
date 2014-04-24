@@ -1,3 +1,7 @@
+NOTE: This is just a working copy (fork) of https://github.com/Sybio/GifCreator,
+for some wording fixes (of mistakes inherited from the original [GIFEncoder](https://gist.github.com/allometry/1438842) from Laszlo Zsidi), minor code cosmetics, and customizations. All the rest below 
+is just the verbatim copy of Clément Guillemain's original README, unchanged (yet).
+
 # ================================
 # GifCreator
 # ================================
