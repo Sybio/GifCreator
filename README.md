@@ -1,7 +1,7 @@
 NOTE: This is mostly just a "stylistic" fork of the nice https://github.com/Sybio/GifCreator,
-for some code cosmetics (incl. some API name changes), some wording fixes (partly inherited from the original [GIFEncoder](https://gist.github.com/allometry/1438842) from Laszlo Zsidi), and (possibly upcoming) customizations. 
-All the rest below is mostly just Clément Guillemain's original README (apart from 
-API name updates, slight wording changes, adding the Deps. section etc.).
+for some code cosmetics (incl. some API name changes), some wording fixes (partly inherited from the original [GIFEncoder](https://gist.github.com/allometry/1438842) from Laci Zsidi), and (possibly upcoming) customizations. 
+The rest below is mostly just Clément Guillemain's README (apart from API name updates, 
+slight wording changes, adding the Deps. & Credits sections etc.).
 
 # ================================
 # AnimGif
@@ -69,11 +69,12 @@ file_put_contents('/myfolder/animated_picture.gif', $gifBinary);
 - The dimensions of the generated GIF are based on the first frame. If you need to resize your frames to get the same dimension, you can use 
 this class: https://github.com/Sybio/ImageWorkshop
 
-### About
+### Credits
 
-The class reuses some part of code of "GIFEncoder.class.php" by László Zsidi (thanks to him).
+* László Zsidi: Important parts of his "GIFEncoder.class.php" by have been reused. (Thanks, Laci!)
+* Clément Guillemain: for the very handy, redesigned (& "classified") API, extensions and nice docs.
 
 ### Dependencies
 
 * PHP 5.3 (for namespace support)
-* GD (imagecreatefromstring, imagecolortransparent etc.)
+* GD (`imagecreatefromstring`, `imagecolortransparent` etc.)
