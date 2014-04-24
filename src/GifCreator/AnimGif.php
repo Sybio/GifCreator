@@ -42,7 +42,7 @@ DONE:
 
 namespace GifCreator;
 
-define(VERSION, '1.1-lunakid');
+define(VERSION, '1.1');
 
 class AnimGif
 {
