@@ -6,9 +6,7 @@ from Laci Zsidi), minor corrections & improvements etc.*
 # AnimGif
 # ================================
 
-AnimGif is a PHP class to create an animated GIF from multiple images.
-
-Just list a few images (and optionally their durations) -- and that's it!
+AnimGif is a PHP class to create an animated GIF -- just list the source images, and that's it!
 
 
 ### Usage
