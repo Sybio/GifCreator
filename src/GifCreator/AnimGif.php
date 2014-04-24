@@ -1,5 +1,4 @@
 <?php
-define(VERSION, '1.1-lunakid');
 
 /* [!!UNTESTED!!] CHANGES by lunakid:
 + Made $this->version a define (VERSION).
@@ -23,7 +22,10 @@ define(VERSION, '1.1-lunakid');
  * @copyright Clément Guillemain, Szabolcs Szász
  */
 
+
 namespace GifCreator;
+
+define(VERSION, '1.1-lunakid');
 
 class AnimGif
 {
