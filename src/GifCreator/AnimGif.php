@@ -2,7 +2,7 @@
 
 /* [!!UNTESTED!!] CHANGES by lunakid:
 TODO:
-! ERR01 is 'Source is not a GIF image.', but there's a png in the examples!
+! ERR01 is 'Source is not a GIF image.', but there's a .png in the examples!
 	-> Do support non-GIF files!
 DONE:
 + create() should iterate $frames with foreach() not for assuming direct
@@ -125,7 +125,7 @@ class AnimGif
 
 			} elseif (is_string($frame)) { // File path or URL or Binary source code
 			     
-				if (file_exists($frame]) || filter_var($frame, FILTER_VALIDATE_URL)) { // File path
+				if (file_exists($frame) || filter_var($frame, FILTER_VALIDATE_URL)) { // File path
 					$frame = file_get_contents($frame);                    
 				}
 
