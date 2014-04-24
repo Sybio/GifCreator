@@ -1,6 +1,13 @@
 <?php
 
 /* [!!UNTESTED!!] CHANGES by lunakid:
+TODO:
+! Do support uniform timing without an array.
+! Remove ERR00 by auto-creating an 1-element array by default.
+DONE:
++ Fix leftover $GIF_tim name in create().
++ Renamed method getGif() to get().
++ Renamed class to AnimGif (from GifCreator).
 + Made $this->version a define (VERSION).
 + Made $this->errors really static (self::$errors).
 + Moved encodeAsciiToChar() out from the class to the namespace root as a general utility fn.
@@ -9,8 +16,6 @@
 + Changed comments here & there.
 + Whitespaces: fixed some tab/space mismatch etc.
 + Changed {$i} indexes to [$i] in gifBlockCompare(). (Some more left.)
-+ Renamed class to AnimGif (from GifCreator).
-+ Renamed method getGif() to get().
 */
 
 /**
@@ -73,7 +78,6 @@ class AnimGif
 
 		// Static data
 		self::$errors = array(
-			//!! REMOVE ERR00 by auto-creating an array by default:
 			'ERR00' => 'Not supported with only one source image.',
 			'ERR01' => 'Source is not a GIF image.',
 			'ERR02' => 'You have to give image resource variables, image URLs or image binary sources in the $frames array.',
@@ -92,7 +96,7 @@ class AnimGif
 	 */
 	public function create($frames = array(), $durations = array(), $loop = 0)
 	{
-		if (!is_array($frames) && !is_array($GIF_tim)) {
+		if (!is_array($frames) && !is_array($durations)) {
 			throw new \Exception(VERSION.': '.self::$errors['ERR00']);
 		}
 
