@@ -1,7 +1,8 @@
-NOTE: This is mostly just a "stylistic" fork of the nice https://github.com/Sybio/GifCreator,
-for some code cosmetics (incl. some API name changes), some wording fixes (partly inherited from the original [GIFEncoder](https://gist.github.com/allometry/1438842) from Laci Zsidi), and (possibly upcoming) customizations. 
-The rest below is mostly just Clément Guillemain's README (apart from API name updates, 
-slight wording changes, adding the Deps. & Credits sections etc.).
+NOTE: This is mostly just a "stylistic" fork of Clément Guillemain's nice [GifCreator class](https://github.com/Sybio/GifCreator), for some code cosmetics (incl. some API name changes), 
+some wording fixes (partly inherited from the original [GIFEncoder](https://gist.github.com/allometry/1438842) 
+from Laci Zsidi), and (possibly upcoming) customizations. 
+The rest below is mostly just the original README (apart from API name updates, slight wording changes, adding the 
+Dependencies & Credits sections etc.).
 
 # ================================
 # AnimGif
