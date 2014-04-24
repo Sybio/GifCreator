@@ -2,16 +2,15 @@
 
 /* CHANGES by lunakid:
 TODO:
-! Anim delay does not seem to be 40 ms by default...
+! Default anim delay doesn't seem to be 40 ms, at all. :-o
+
 DONE:
 + Fix ERR01 "Source is not a GIF image.": there's a .png in the examples!
-  -> And it does support non-GIF files actually.
+  -> And it does support non-GIF files actually!
   Moved the error check to resource inputs only, and changed it to
   "Resource is not a GIF image.".
-+ The raw GIF return example is broken in the README.
-  (It was not caused by this code.)
 + create() should iterate $frames with foreach() not for assuming direct
-  indexes from 0 to < count. 
+  indexes from 0 to < count.
   (The array keys can be anything, and should not affect the results.)
 + Removed unused $mode from reporting ERR02.
 + $duration now has a meaningful default in create().
@@ -28,7 +27,7 @@ DONE:
 + Moved reset() closer up to the ctor.
 + Changed comments here & there.
 + Whitespaces: fixed some tab/space mismatch etc.
-+ Changed {$i} indexes to [$i] in gifBlockCompare(). (Some more left.)
++ Changed {$i} indexes to [$i] in gifBlockCompare(), just for fun. ;)
 */
 
 /**
