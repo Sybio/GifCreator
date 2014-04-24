@@ -2,16 +2,14 @@
 wording fixes (partly inherited from the original [GIFEncoder](https://gist.github.com/allometry/1438842) 
 from Laci Zsidi), minor corrections & improvements etc.*
 
-# ================================
-# AnimGif
-# ================================
+### About 
 
-AnimGif is a PHP class to create an animated GIF -- just list the source images, and that's it!
+AnimGif is a PHP class to create an animated GIF -- just list the source images (in various formats), and that's it!
 
 
 ### Usage
 
-**1 - Creation:**
+**1. Creation:**
 
 ```php
 // Create an array containing file paths, resource vars (initialized with imagecreatefromXXX), 
@@ -37,7 +35,7 @@ $anim->create($frames, $durations);
 //$anim->create($frames, $durations, 5); // default: infinite looping
 ```
 
-**2 - Get the result:**
+**2. Get the result:**
 
 You can now get the animated GIF binary:
 
@@ -45,7 +43,7 @@ You can now get the animated GIF binary:
 $gifBinary = $anim->get();
 ```
 
-**3 - Use it:**
+**3. Use it:**
 
 Then you can send it to the browser:
 
@@ -61,16 +59,19 @@ Or save it as a GIF file:
 file_put_contents('/myfolder/animated_picture.gif', $gifBinary);
 ```
 
+
 ### Behavior
 
 - The transparency is based on the first given frame. It will be saved only if you give multiple frames with the same transparent background.
 - The dimensions of the generated GIF are based on the first frame. If you need to resize your frames to get the same dimension, you can use 
 this class: https://github.com/Sybio/ImageWorkshop.
 
+
 ### Dependencies
 
 * PHP 5.3 (for namespace support)
 * GD (`imagecreatefromstring`, `imagegif`, `imagecolortransparent`)
+
 
 ### Credits
 
