@@ -1,7 +1,7 @@
 NOTE: This is just a working copy (fork) of https://github.com/Sybio/GifCreator,
 for some wording fixes (partly inherited from the original [GIFEncoder](https://gist.github.com/allometry/1438842) from Laszlo Zsidi), some code cosmetics, and (possibly upcoming) customizations. 
-All the rest below is just Clément Guillemain's original README (apart from 
-updating the names changed in this version).
+All the rest below is mostly just Clément Guillemain's original README (apart from 
+API name updates, slight wording changes, adding the Deps. section etc.).
 
 # ================================
 # AnimGif
@@ -32,8 +32,8 @@ $frames = array(
 $durations = array(40, 80, 40, 20);
 
 // Initialize and create the GIF !
-$gc = new GifCreator\AnimGif();
-$gc->create($frames, $durations, 5);
+$anim = new GifCreator\AnimGif();
+$anim->create($frames, $durations, 5);
 ```
 The 3rd parameter of create() method allows you to choose the number of loop of your animated gif before it stops.
 In the previous example, I chose 5 loops. Set 0 (zero) to get an infinite loop.
@@ -43,10 +43,11 @@ In the previous example, I chose 5 loops. Set 0 (zero) to get an infinite loop.
 You can now get the animated GIF binary:
 
 ```php
-$gifBinary = $gc->get();
+$gifBinary = $anim->get();
 ```
 
-Then you can show it in the navigator:
+**3 - Use it:**
+Then you can send it to the browser:
 
 ```php
 header('Content-type: image/gif');
@@ -55,7 +56,7 @@ echo $gifBinary;
 exit;
 ```
 
-Or save it in a folder as a GIF:
+Or save it as a GIF file:
 
 ```php
 file_put_contents('/myfolder/animated_picture.gif', $gifBinary);
@@ -74,4 +75,4 @@ The class reuses some part of code of "GIFEncoder.class.php" by László Zsidi (
 ### Dependencies
 
 * PHP 5.3 (for namespace support)
-* GD2 [!!?]
+* GD (imagecreatefromstring, imagecolortransparent etc.)
