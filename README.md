@@ -53,7 +53,6 @@ Then you can send it to the browser:
 
 ```php
 header('Content-type: image/gif');
-header('Content-Disposition: filename="butterfly.gif"');
 echo $gifBinary;
 exit;
 ```
