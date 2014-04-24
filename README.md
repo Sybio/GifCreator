@@ -76,5 +76,5 @@ this class: https://github.com/Sybio/ImageWorkshop
 
 ### Credits
 
-* László Zsidi: Important parts of his "GIFEncoder.class.php" by have been reused. (Thanks, Laci!)
-* Clément Guillemain: for the very handy, redesigned (& "classified") API, extensions and nice docs.
+* László Zsidi: Important parts of his "GIFEncoder.class.php" have been reused. (Thanks, Laci!)
+* Clément Guillemain: for the very handy, redesigned (& "classified") API, extensions and nice docs!
