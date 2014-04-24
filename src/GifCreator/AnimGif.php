@@ -3,11 +3,13 @@
 /* CHANGES by lunakid:
 TODO:
 ! Anim delay does not seem to be 40 ms by default...
-! ERR01 is 'Source is not a GIF image.', but there's a .png in the examples!
-	-> It does support non-GIF files actually!
 DONE:
++ Fix ERR01 "Source is not a GIF image.": there's a .png in the examples!
+  -> And it does support non-GIF files actually.
+  Moved the error check to resource inputs only, and changed it to
+  "Resource is not a GIF image.".
 + The raw GIF return example is broken in the README.
-	(It was not caused by this code.)
+  (It was not caused by this code.)
 + create() should iterate $frames with foreach() not for assuming direct
   indexes from 0 to < count. 
   (The array keys can be anything, and should not affect the results.)
@@ -90,7 +92,7 @@ class AnimGif
 		// Static data
 		self::$errors = array(
 			'ERR00' => 'Cannot make animation from a single frame.',
-			'ERR01' => 'Source is not a GIF image.',
+			'ERR01' => 'Resource is not a GIF image.',
 			'ERR02' => 'You have to give image resource variables, image URLs or image binary sources in the $frames array.',
 			'ERR03' => 'Cannot make animation from animated GIF.',
 		);
@@ -126,6 +128,10 @@ class AnimGif
 				$this->frameSources[] = ob_get_contents();
 				ob_end_clean();
 
+				if (substr($this->frameSources[$i], 0, 6) != 'GIF87a' && substr($this->frameSources[$i], 0, 6) != 'GIF89a') {
+					throw new \Exception(VERSION.': '.$i.' '.self::$errors['ERR01']);
+				}
+	
 			} elseif (is_string($frame)) { // File path or URL or Binary source code
 			     
 				if (file_exists($frame) || filter_var($frame, FILTER_VALIDATE_URL)) { // File path
@@ -145,10 +151,6 @@ class AnimGif
 
 			if ($i == 0) {
 				$colour = imagecolortransparent($resourceImg);
-			}
-
-			if (substr($this->frameSources[$i], 0, 6) != 'GIF87a' && substr($this->frameSources[$i], 0, 6) != 'GIF89a') {
-				throw new \Exception(VERSION.': '.$i.' '.self::$errors['ERR01']);
 			}
 
 			for ($j = (13 + 3 * (2 << (ord($this->frameSources[$i] { 10 }) & 0x07))), $k = TRUE; $k; $j++) {
