@@ -193,7 +193,13 @@ class GifCreator
 
             $this->gif .= substr($this->frameSources[0], 6, 7);
             $this->gif .= substr($this->frameSources[0], 13, $cmap);
-            $this->gif .= "!\377\13NETSCAPE2.0\3\1".$this->encodeAsciiToChar($this->loop)."\0";
+            if ($this->loop != 1) {
+              // Browsers interpret loop count differently, but for loop == 1
+              // we can work around this by excluding loop count completely
+              // since all browsers seem to handle "no loop count" as
+              // "play once only".
+              $this->gif .= "!\377\13NETSCAPE2.0\3\1".$this->encodeAsciiToChar($this->loop)."\0";
+            }
         }
     }
 
