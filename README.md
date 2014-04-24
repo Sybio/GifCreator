@@ -56,14 +56,14 @@ exit;
 Or save it as a GIF file:
 
 ```php
-file_put_contents('/myfolder/animated_picture.gif', $gifBinary);
+file_put_contents('/myfolder/animated.gif', $gifBinary);
 ```
 
 
 ### Behavior
 
 - The transparency is based on the first given frame. It will be saved only if you give multiple frames with the same transparent background.
-- The dimensions of the generated GIF are based on the first frame. If you need to resize your frames to get the same dimension, you can use 
+- The dimensions of the generated GIF are based on the first frame. If you need to resize your frames to get the same dimensions, you can use 
 this class: https://github.com/Sybio/ImageWorkshop.
 
 
