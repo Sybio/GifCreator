@@ -4,7 +4,7 @@ All the rest below is just Clément Guillemain's original README (apart from
 updating the names changed in this version).
 
 # ================================
-# GifCreator\AnimGif
+# AnimGif
 # ================================
 
 AnimGif is a PHP class to create an animated GIF from multiple images.
@@ -32,7 +32,7 @@ $frames = array(
 $durations = array(40, 80, 40, 20);
 
 // Initialize and create the GIF !
-$gc = new AnimGif();
+$gc = new GifCreator\AnimGif();
 $gc->create($frames, $durations, 5);
 ```
 The 3rd parameter of create() method allows you to choose the number of loop of your animated gif before it stops.
