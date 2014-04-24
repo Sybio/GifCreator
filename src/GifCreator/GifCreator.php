@@ -9,6 +9,9 @@ define(VERSION, '1.1-lunakid');
 + Moved reset() closer up to the ctor.
 + Changed comments here & there.
 + Whitespaces: fixed some tab/space mismatch etc.
++ Changed {$i} indexes to [$i] in gifBlockCompare(). (Some more left.)
++ Renamed class to AnimGif (from GifCreator).
++ Renamed method getGif() to get().
 */
 
 /**
@@ -22,7 +25,7 @@ define(VERSION, '1.1-lunakid');
 
 namespace GifCreator;
 
-class GifCreator
+class AnimGif
 {
 	/**
 	* @var string The generated (binary) image
@@ -77,7 +80,7 @@ class GifCreator
 	}
 
 	/**
-	 * Create the GIF string (old: GIFEncoder)
+	 * Create the GIF string
 	 * 
 	 * @param array $frames An array of frame: can be file paths, resource image variables, binary sources or image URLs
 	 * @param array $durations An array containing the duration of each frame
@@ -173,11 +176,11 @@ class GifCreator
 	}
 
 	/**
-	 * Get the final GIF image string (old: GetAnimation)
+	 * Get the final GIF image string
 	 * 
 	 * @return string
 	 */
-	public function getGif()
+	public function get()
 	{
 		return $this->gif;
 	}
@@ -199,7 +202,7 @@ class GifCreator
 	}
 	    
 	/**
-	 * Add the header gif string in its source (old: GIFAddHeader)
+	 * Add the header gif string in its source
 	 */
 	public function gifAddHeader()
 	{
@@ -216,7 +219,7 @@ class GifCreator
 	}
     
 	/**
-	 * Add the frame sources to the GIF string (old: GIFAddFrames)
+	 * Add the frame sources to the GIF string
 	 * 
 	 * @param integer $i
 	 * @param integer $d
@@ -304,7 +307,7 @@ class GifCreator
 	}
     
 	/**
-	 * Add the gif string footer char (old: GIFAddFooter)
+	 * Add the gif string footer char
 	 */
 	public function gifAddFooter()
 	{
@@ -312,7 +315,7 @@ class GifCreator
 	}
     
 	/**
-	 * Compare two block and return the version (old: GIFBlockCompare)
+	 * Compare two block and return the version
 	 * 
 	 * @param string $globalBlock
 	 * @param string $localBlock
