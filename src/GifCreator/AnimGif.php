@@ -34,12 +34,11 @@ DONE:
 /**
  * Create an animated GIF from multiple images
  * 
- * @link https://github.com/lunakid/GifCreator
+ * @link https://github.com/lunakid/AnimGif
  * @author Sybio (Clément Guillemain / @Sybio01), lunakid (@GitHub, @Gmail, @SO etc.)
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @copyright Clément Guillemain, Szabolcs Szász
  */
-
 
 namespace GifCreator;
 
