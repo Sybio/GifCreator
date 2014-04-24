@@ -1,190 +1,208 @@
 <?php
+define(VERSION, '1.1-lunakid');
 
-namespace GifCreator;
+/* [!!UNTESTED!!] CHANGES by lunakid:
++ Made $this->version a define (VERSION).
++ Made $this->errors really static (self::$errors).
++ Moved encodeAsciiToChar() out from the class to the namespace root as a general utility fn.
++ Moved getGif to the "public" section (and removed the Getter/Setter section).
++ Moved reset() closer up to the ctor.
++ Changed comments here & there.
++ Whitespaces: fixed some tab/space mismatch etc.
+*/
 
 /**
  * Create an animated GIF from multiple images
  * 
- * @version 1.0
- * @link https://github.com/Sybio/GifCreator
- * @author Sybio (Clément Guillemain  / @Sybio01)
+ * @link https://github.com/lunakid/GifCreator
+ * @author Sybio (Clément Guillemain / @Sybio01), lunakid (@GitHub, @Gmail, @SO etc.)
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @copyright Clément Guillemain
+ * @copyright Clément Guillemain, Szabolcs Szász
  */
+
+namespace GifCreator;
+
 class GifCreator
 {
-    /**
-     * @var string The gif string source (old: this->GIF)
-     */
-    private $gif;
-    
-    /**
-     * @var string Encoder version (old: this->VER)
-     */
-	private $version;
-    
-    /**
-     * @var boolean Check the image is build or not (old: this->IMG)
-     */
-    private $imgBuilt;
-
-    /**
-     * @var array Frames string sources (old: this->BUF)
-     */
-	private $frameSources;
-    
-    /**
-     * @var integer Gif loop (old: this->LOP)
-     */
-	private $loop;
-    
-    /**
-     * @var integer Gif dis (old: this->DIS)
-     */
-	private $dis;
-    
-    /**
-     * @var integer Gif color (old: this->COL)
-     */
-	private $colour;
-    
-    /**
-     * @var array (old: this->ERR)
-     */
-	private $errors;
- 
-    // Methods
-    // ===================================================================================
-    
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->reset();
-        
-        // Static data
-        $this->version = 'GifCreator: Under development';
-        $this->errors = array(
-            'ERR00' => 'Does not supported function for only one image.',
-    		'ERR01' => 'Source is not a GIF image.',
-    		'ERR02' => 'You have to give resource image variables, image URL or image binary sources in $frames array.',
-    		'ERR03' => 'Does not make animation from animated GIF source.',
-        );
-    }
+	/**
+	* @var string The generated (binary) image
+	*/
+	private $gif;
 
 	/**
-     * Create the GIF string (old: GIFEncoder)
-     * 
-     * @param array $frames An array of frame: can be file paths, resource image variables, binary sources or image URLs
-     * @param array $durations An array containing the duration of each frame
-     * @param integer $loop Number of GIF loops before stopping animation (Set 0 to get an infinite loop)
-     * 
-     * @return string The GIF string source
-     */
+	* @var boolean Has the image been built or not
+	*/
+	private $imgBuilt;
+
+	/**
+	* @var array Frames string sources
+	*/
+	private $frameSources;
+
+	/**
+	* @var integer Gif loop
+	*/
+	private $loop;
+
+	/**
+	* @var integer Gif dis [!!?]
+	*/
+	private $dis;
+
+	/**
+	* @var integer Gif color
+	*/
+	private $colour;
+
+	/**
+	* @var array
+	*/
+	private static $errors;
+ 
+	// Methods
+	// ===================================================================================
+    
+	public function __construct()
+	{
+		$this->reset();
+
+		// Static data
+		self::$errors = array(
+			//!! REMOVE ERR00 by auto-creating an array by default:
+			'ERR00' => 'Not supported with only one source image.',
+			'ERR01' => 'Source is not a GIF image.',
+			'ERR02' => 'You have to give image resource variables, image URLs or image binary sources in the $frames array.',
+			'ERR03' => 'Cannot make animation from animated GIF source.',
+		);
+	}
+
+	/**
+	 * Create the GIF string (old: GIFEncoder)
+	 * 
+	 * @param array $frames An array of frame: can be file paths, resource image variables, binary sources or image URLs
+	 * @param array $durations An array containing the duration of each frame
+	 * @param integer $loop Number of GIF loops before stopping animation (Set 0 to get an infinite loop)
+	 * 
+	 * @return string The GIF string source
+	 */
 	public function create($frames = array(), $durations = array(), $loop = 0)
-    {
+	{
 		if (!is_array($frames) && !is_array($GIF_tim)) {
-            
-            throw new \Exception($this->version.': '.$this->errors['ERR00']);
+			throw new \Exception(VERSION.': '.self::$errors['ERR00']);
 		}
-        
+
 		$this->loop = ($loop > -1) ? $loop : 0;
 		$this->dis = 2;
-        
+
 		for ($i = 0; $i < count($frames); $i++) {
 		  
 			if (is_resource($frames[$i])) { // Resource var
-                
-                $resourceImg = $frames[$i];
-                
-                ob_start();
-                imagegif($frames[$i]);
-                $this->frameSources[] = ob_get_contents();
-                ob_end_clean();
-                
-            } elseif (is_string($frames[$i])) { // File path or URL or Binary source code
+
+				$resourceImg = $frames[$i];
+
+				ob_start();
+				imagegif($frames[$i]);
+				$this->frameSources[] = ob_get_contents();
+				ob_end_clean();
+
+			} elseif (is_string($frames[$i])) { // File path or URL or Binary source code
 			     
-                if (file_exists($frames[$i]) || filter_var($frames[$i], FILTER_VALIDATE_URL)) { // File path
-                    
-                    $frames[$i] = file_get_contents($frames[$i]);                    
-                }
-                
-                $resourceImg = imagecreatefromstring($frames[$i]);
-                
-                ob_start();
-                imagegif($resourceImg);
-                $this->frameSources[] = ob_get_contents();
-                ob_end_clean();
-                 
+				if (file_exists($frames[$i]) || filter_var($frames[$i], FILTER_VALIDATE_URL)) { // File path
+					$frames[$i] = file_get_contents($frames[$i]);                    
+				}
+
+				$resourceImg = imagecreatefromstring($frames[$i]);
+
+				ob_start();
+				imagegif($resourceImg);
+				$this->frameSources[] = ob_get_contents();
+				ob_end_clean();
+		 
 			} else { // Fail
-                
-                throw new \Exception($this->version.': '.$this->errors['ERR02'].' ('.$mode.')');
+				throw new \Exception(VERSION.': '.self::$errors['ERR02'].' ('.$mode.')');
 			}
-            
-            if ($i == 0) {
-                
-                $colour = imagecolortransparent($resourceImg);
-            }
-            
+
+			if ($i == 0) {
+				$colour = imagecolortransparent($resourceImg);
+			}
+
 			if (substr($this->frameSources[$i], 0, 6) != 'GIF87a' && substr($this->frameSources[$i], 0, 6) != 'GIF89a') {
-			 
-                throw new \Exception($this->version.': '.$i.' '.$this->errors['ERR01']);
+				throw new \Exception(VERSION.': '.$i.' '.self::$errors['ERR01']);
 			}
-            
+
 			for ($j = (13 + 3 * (2 << (ord($this->frameSources[$i] { 10 }) & 0x07))), $k = TRUE; $k; $j++) {
 			 
 				switch ($this->frameSources[$i] { $j }) {
 				    
 					case '!':
-                    
+		    
 						if ((substr($this->frameSources[$i], ($j + 3), 8)) == 'NETSCAPE') {
-                            
-                            throw new \Exception($this->version.': '.$this->errors['ERR03'].' ('.($i + 1).' source).');
+			    
+			    throw new \Exception(VERSION.': '.self::$errors['ERR03'].' ('.($i + 1).' source).');
 						}
-                        
+			
 					break;
-                        
+			
 					case ';':
-                    
+		    
 						$k = false;
 					break;
 				}
 			}
-            
-            unset($resourceImg);
+
+			unset($resourceImg);
+		}//for
+
+		if (isset($colour)) {
+			$this->colour = $colour;	    
+		} else {
+			$red = $green = $blue = 0;
+			$this->colour = ($red > -1 && $green > -1 && $blue > -1) ? ($red | ($green << 8) | ($blue << 16)) : -1;
 		}
-		
-        if (isset($colour)) {
-            
-            $this->colour = $colour;
-                                    
-        } else {
-            
-            $red = $green = $blue = 0;
-            $this->colour = ($red > -1 && $green > -1 && $blue > -1) ? ($red | ($green << 8) | ($blue << 16)) : -1;
-        }
-        
+
 		$this->gifAddHeader();
-        
+
 		for ($i = 0; $i < count($this->frameSources); $i++) {
 		  
 			$this->addGifFrames($i, $durations[$i]);
 		}
-        
+
 		$this->gifAddFooter();
-        
-        return $this->gif;
+
+		return $this->gif;
+	}
+
+	/**
+	 * Get the final GIF image string (old: GetAnimation)
+	 * 
+	 * @return string
+	 */
+	public function getGif()
+	{
+		return $this->gif;
 	}
     
-    // Internals
-    // ===================================================================================
-    
+	// Internals
+	// ===================================================================================
+
 	/**
-     * Add the header gif string in its source (old: GIFAddHeader)
-     */
+	 * Reset and clean the current object (only used by the ctor. currently)
+	 */
+	public function reset()
+	{
+		$this->frameSources;
+		$this->gif = 'GIF89a'; // the GIF header
+		$this->imgBuilt = false;
+		$this->loop = 0;
+		$this->dis = 2;
+		$this->colour = -1;
+	}
+	    
+	/**
+	 * Add the header gif string in its source (old: GIFAddHeader)
+	 */
 	public function gifAddHeader()
-    {
+	{
 		$cmap = 0;
 
 		if (ord($this->frameSources[0] { 10 }) & 0x80) {
@@ -198,13 +216,13 @@ class GifCreator
 	}
     
 	/**
-     * Add the frame sources to the GIF string (old: GIFAddFrames)
-     * 
-     * @param integer $i
-     * @param integer $d
-     */
+	 * Add the frame sources to the GIF string (old: GIFAddFrames)
+	 * 
+	 * @param integer $i
+	 * @param integer $d
+	 */
 	public function addGifFrames($i, $d)
-    {
+	{
 		$Locals_str = 13 + 3 * (2 << (ord($this->frameSources[ $i ] { 10 }) & 0x07));
 
 		$Locals_end = strlen($this->frameSources[$i]) - $Locals_str - 1;
@@ -239,14 +257,14 @@ class GifCreator
 				$Locals_img = substr($Locals_tmp, 8, 10);
 				$Locals_tmp = substr($Locals_tmp, 18, strlen($Locals_tmp) - 18);
                                 
-			break;
+				break;
                 
 			case ',':
             
 				$Locals_img = substr($Locals_tmp, 0, 10);
 				$Locals_tmp = substr($Locals_tmp, 10, strlen($Locals_tmp) - 10);
                                 
-			break;
+				break;
 		}
         
 		if (ord($this->frameSources[$i] { 10 }) & 0x80 && $this->imgBuilt) {
@@ -286,72 +304,47 @@ class GifCreator
 	}
     
 	/**
-     * Add the gif string footer char (old: GIFAddFooter)
-     */
+	 * Add the gif string footer char (old: GIFAddFooter)
+	 */
 	public function gifAddFooter()
-    {
+	{
 		$this->gif .= ';';
 	}
     
 	/**
-     * Compare two block and return the version (old: GIFBlockCompare)
-     * 
-     * @param string $globalBlock
-     * @param string $localBlock
-     * @param integer $length
-     * 
-     * @return integer
+	 * Compare two block and return the version (old: GIFBlockCompare)
+	 * 
+	 * @param string $globalBlock
+	 * @param string $localBlock
+	 * @param integer $length
+	 * 
+	 * @return integer
 	 */
 	public function gifBlockCompare($globalBlock, $localBlock, $length)
-    {
+	{
 		for ($i = 0; $i < $length; $i++) {
 		  
-			if ($globalBlock { 3 * $i + 0 } != $localBlock { 3 * $i + 0 } ||
-				$globalBlock { 3 * $i + 1 } != $localBlock { 3 * $i + 1 } ||
-				$globalBlock { 3 * $i + 2 } != $localBlock { 3 * $i + 2 }) {
+			if ($globalBlock [ 3 * $i + 0 ] != $localBlock [ 3 * $i + 0 ] ||
+			    $globalBlock [ 3 * $i + 1 ] != $localBlock [ 3 * $i + 1 ] ||
+			    $globalBlock [ 3 * $i + 2 ] != $localBlock [ 3 * $i + 2 ]) {
 				
-                return 0;
+				return 0;
 			}
 		}
 
 		return 1;
 	}
     
-	/**
-     * Encode an ASCII char into a string char (old: GIFWord)
-     * 
-     * $param integer $char ASCII char
-     * 
-     * @return string
-	 */
-	public function encodeAsciiToChar($char)
-    {
-		return (chr($char & 0xFF).chr(($char >> 8) & 0xFF));
-	}
-    
-    /**
-     * Reset and clean the current object
-     */
-    public function reset()
-    {
-        $this->frameSources;
-        $this->gif = 'GIF89a'; // the GIF header
-        $this->imgBuilt = false;
-        $this->loop = 0;
-        $this->dis = 2;
-        $this->colour = -1;
-    }
-    
-    // Getter / Setter
-    // ===================================================================================
-    
-	/**
-     * Get the final GIF image string (old: GetAnimation)
-     * 
-     * @return string
-	 */
-	public function getGif()
-    {
-		return $this->gif;
-	}
+}
+
+/**
+ * Encode an ASCII char into a string char
+ * 
+ * $param integer $char ASCII char
+ * 
+ * @return string
+ */
+public function encodeAsciiToChar($char)
+{
+	return (chr($char & 0xFF).chr(($char >> 8) & 0xFF));
 }
