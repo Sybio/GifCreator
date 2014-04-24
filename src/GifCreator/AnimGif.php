@@ -5,6 +5,8 @@ TODO:
 ! ERR01 is 'Source is not a GIF image.', but there's a png in the examples!
 	-> Do support non-GIF files!
 DONE:
++ $duration now has a meaningful default in create().
++ $frames was incorrectly made an optional arg. of create().
 + Support uniform timing without an array.
 + Separate ERR00 from $durations not being an array.
 + Fix leftover $GIF_tim name in create().
@@ -91,12 +93,12 @@ class AnimGif
 	 * Create the GIF string
 	 * 
 	 * @param array $frames An array of frame: can be file paths, resource image variables, binary sources or image URLs
-	 * @param array $durations An array containing the duration of each frame
+	 * @param array|number $durations The duration (in ms) of each frame, or a single integer for each one.
 	 * @param integer $loop Number of GIF loops before stopping animation (Set 0 to get an infinite loop)
 	 * 
 	 * @return string The GIF string source
 	 */
-	public function create($frames = array(), $durations = array(), $loop = 0)
+	public function create($frames, $durations = 40, $loop = 0)
 	{
 		if (!is_array($frames)) {
 			throw new \Exception(VERSION.': '.self::$errors['ERR00']);
