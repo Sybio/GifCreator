@@ -1,18 +1,14 @@
-NOTE: This is mostly a "stylistic" fork of Clément Guillemain's nice [GifCreator class](https://github.com/Sybio/GifCreator), for code cosmetics, some API changes (e.g. renaming the class), 
+*NOTE: This is mostly a "stylistic" fork of Clément Guillemain's nice [GifCreator class](https://github.com/Sybio/GifCreator), for code cosmetics, some API changes (e.g. renaming the class), 
 wording fixes (partly inherited from the original [GIFEncoder](https://gist.github.com/allometry/1438842) 
-from Laci Zsidi), minor corrections & improvements etc. 
-(The rest below is mostly the original README, apart from API changes, slight wording fixes, adding the 
-Dependencies & Credits sections etc.)
+from Laci Zsidi), minor corrections & improvements etc.*
 
 # ================================
 # AnimGif
 # ================================
 
 AnimGif is a PHP class to create an animated GIF from multiple images.
+Just list a few images (and optionally their durations) -- and that's it!
 
-### For what?
-
-This class helps you create an animated GIF image: give multiple images and their duration and that's it!
 
 ### Usage
 
