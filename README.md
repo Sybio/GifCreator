@@ -47,6 +47,7 @@ $gifBinary = $anim->get();
 ```
 
 **3 - Use it:**
+
 Then you can send it to the browser:
 
 ```php
