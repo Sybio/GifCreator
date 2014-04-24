@@ -1,8 +1,8 @@
 NOTE: This is mostly just a "stylistic" fork of Clément Guillemain's nice [GifCreator class](https://github.com/Sybio/GifCreator), for some code cosmetics (incl. some API name changes), 
 some wording fixes (partly inherited from the original [GIFEncoder](https://gist.github.com/allometry/1438842) 
 from Laci Zsidi), and (possibly upcoming) customizations. 
-The rest below is mostly just the original README (apart from API name updates, slight wording changes, adding the 
-Dependencies & Credits sections etc.).
+(The rest below is mostly the original README, apart from API changes, slight wording fixes, adding the 
+Dependencies & Credits sections etc.)
 
 # ================================
 # AnimGif
@@ -29,15 +29,15 @@ $frames = array(
     'http://thisisafakedomain.com/images/pic4.jpg', // URL
 );
 
-// Create an array containing the duration (in millisecond) of each frames (in order too)
+// Create an (optional) array containing the duration (in milliseconds) of each frame (in order too)
 $durations = array(40, 80, 40, 20);
 
 // Initialize and create the GIF !
 $anim = new GifCreator\AnimGif();
-$anim->create($frames, $durations, 5);
+$anim->create($frames, $durations, 5); // or just create($frames, 40) for an even 40ms delay
 ```
-The 3rd parameter of create() method allows you to choose the number of loop of your animated gif before it stops.
-In the previous example, I chose 5 loops. Set 0 (zero) to get an infinite loop.
+The 3rd parameter of create() allows you to set the number of loops of your animated gif before it stops.
+In the previous example, I chose 5 loops. Omit or set to 0 (zero) for an infinite loop.
 
 **2 - Get the result:**
 
