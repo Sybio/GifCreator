@@ -349,7 +349,7 @@ class AnimGif
  * 
  * @return string
  */
-public function encodeAsciiToChar($char)
+function encodeAsciiToChar($char)
 {
 	return (chr($char & 0xFF).chr(($char >> 8) & 0xFF));
 }
