@@ -5,6 +5,10 @@ TODO:
 ! ERR01 is 'Source is not a GIF image.', but there's a png in the examples!
 	-> Do support non-GIF files!
 DONE:
++ create() should iterate $frames with foreach() not for assuming direct
+  indexes from 0 to < count. 
+  (The array keys can be anything, and should not affect the results.)
++ Removed unused $mode from reporting ERR02.
 + $duration now has a meaningful default in create().
 + $frames was incorrectly made an optional arg. of create().
 + Support uniform timing without an array.
@@ -107,24 +111,25 @@ class AnimGif
 		$this->loop = ($loop > -1) ? $loop : 0;
 		$this->dis = 2;
 
-		for ($i = 0; $i < count($frames); $i++) {
+		$i = 0;
+		foreach ($frames as $frame) {
 		  
-			if (is_resource($frames[$i])) { // Resource var
+			if (is_resource($frame)) { // Resource var
 
-				$resourceImg = $frames[$i];
+				$resourceImg = $frame;
 
 				ob_start();
-				imagegif($frames[$i]);
+				imagegif($frame);
 				$this->frameSources[] = ob_get_contents();
 				ob_end_clean();
 
-			} elseif (is_string($frames[$i])) { // File path or URL or Binary source code
+			} elseif (is_string($frame)) { // File path or URL or Binary source code
 			     
-				if (file_exists($frames[$i]) || filter_var($frames[$i], FILTER_VALIDATE_URL)) { // File path
-					$frames[$i] = file_get_contents($frames[$i]);                    
+				if (file_exists($frame]) || filter_var($frame, FILTER_VALIDATE_URL)) { // File path
+					$frame = file_get_contents($frame);                    
 				}
 
-				$resourceImg = imagecreatefromstring($frames[$i]);
+				$resourceImg = imagecreatefromstring($frame);
 
 				ob_start();
 				imagegif($resourceImg);
@@ -132,7 +137,7 @@ class AnimGif
 				ob_end_clean();
 		 
 			} else { // Fail
-				throw new \Exception(VERSION.': '.self::$errors['ERR02'].' ('.$mode.')');
+				throw new \Exception(VERSION.': '.self::$errors['ERR02']);
 			}
 
 			if ($i == 0) {
@@ -148,23 +153,23 @@ class AnimGif
 				switch ($this->frameSources[$i] { $j }) {
 				    
 					case '!':
-		    
-						if ((substr($this->frameSources[$i], ($j + 3), 8)) == 'NETSCAPE') {
+		    				if ((substr($this->frameSources[$i], ($j + 3), 8)) == 'NETSCAPE') {
 			    
-			    throw new \Exception(VERSION.': '.self::$errors['ERR03'].' ('.($i + 1).' source).');
+							throw new \Exception(VERSION.': '.self::$errors['ERR03'].' ('.($i + 1).' source).');
 						}
 			
-					break;
+						break;
 			
 					case ';':
-		    
-						$k = false;
-					break;
+		    				$k = false;
+						break;
 				}
 			}
 
 			unset($resourceImg);
-		}//for
+
+			++$i;
+		}//foreach
 
 		if (isset($colour)) {
 			$this->colour = $colour;	    
@@ -176,7 +181,7 @@ class AnimGif
 		$this->gifAddHeader();
 
 		for ($i = 0; $i < count($this->frameSources); $i++) {
-		  
+
 			$this->addGifFrames($i, is_array($durations) ? $durations[$i] : $durations);
 		}
 
