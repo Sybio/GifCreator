@@ -14,9 +14,8 @@ AnimGif is a PHP class to create an animated GIF -- just list the source images,
 **1 - Creation:**
 
 ```php
-// Create an array containing file paths, resource var (initialized with imagecreatefromXXX), 
-// image URLs or even binary code from image files.
-// All sorted in order to appear.
+// Create an array containing file paths, resource vars (initialized with imagecreatefromXXX), 
+// image URLs or even binary code from image files. (All in the order as they should appear.)
 $frames = array(
     imagecreatefrompng("/../images/pic1.png"), // Resource var
     "/../images/pic2.png", // Image file path
@@ -24,15 +23,19 @@ $frames = array(
     'http://thisisafakedomain.com/images/pic4.jpg', // URL
 );
 
-// Create an (optional) array containing the duration (in milliseconds) of each frame (in order too)
+// Optionally, create an array containing the duration (in milliseconds) of each frame
 $durations = array(40, 80, 40, 20);
 
-// Initialize and create the GIF !
+// Initialize and create the GIF!
 $anim = new GifCreator\AnimGif();
-$anim->create($frames, $durations, 5); // or just create($frames, 40) for an even 40ms delay
+$anim->create($frames, $durations);
+
+// Or, for just a default even 40ms delay:
+//$anim->create($frames);
+
+// Or, for 5 repeats & then stop:
+//$anim->create($frames, $durations, 5); // default: infinite looping
 ```
-The 3rd parameter of create() allows you to set the number of loops of your animated gif before it stops.
-In the previous example, I chose 5 loops. Omit or set to 0 (zero) for an infinite loop.
 
 **2 - Get the result:**
 
