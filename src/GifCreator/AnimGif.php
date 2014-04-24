@@ -1,9 +1,10 @@
 <?php
 
-/* [!!UNTESTED!!] CHANGES by lunakid:
+/* CHANGES by lunakid:
 TODO:
+! The raw GIF return example is broken in the README.
 ! ERR01 is 'Source is not a GIF image.', but there's a .png in the examples!
-	-> Do support non-GIF files!
+	-> It does support non-GIF files actually!
 DONE:
 + create() should iterate $frames with foreach() not for assuming direct
   indexes from 0 to < count. 
