@@ -211,7 +211,7 @@ class GifCreator
 
 			$this->gif .= substr($this->frameSources[0], 6, 7);
 			$this->gif .= substr($this->frameSources[0], 13, $cmap);
-			$this->gif .= "!\377\13NETSCAPE2.0\3\1".$this->encodeAsciiToChar($this->loop)."\0";
+			$this->gif .= "!\377\13NETSCAPE2.0\3\1".encodeAsciiToChar($this->loop)."\0";
 		}
 	}
     
