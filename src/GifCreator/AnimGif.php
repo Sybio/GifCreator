@@ -18,7 +18,7 @@ DONE:
 + $frames was incorrectly made an optional arg. of create().
 + Support uniform timing without an array.
 + Separate ERR00 from $durations not being an array.
-+ Fix leftover $GIF_tim name in create().
++ Fix leftover $GIF_tim in create().
 + Renamed method getGif() to get().
 + Renamed class to AnimGif (from GifCreator).
 + Made $this->version a define (VERSION).
