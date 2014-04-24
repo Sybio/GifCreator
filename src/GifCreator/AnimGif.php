@@ -2,9 +2,11 @@
 
 /* [!!UNTESTED!!] CHANGES by lunakid:
 TODO:
-! Do support uniform timing without an array.
-! Remove ERR00 by auto-creating an 1-element array by default.
+! ERR01 is 'Source is not a GIF image.', but there's a png in the examples!
+	-> Do support non-GIF files!
 DONE:
++ Support uniform timing without an array.
++ Separate ERR00 from $durations not being an array.
 + Fix leftover $GIF_tim name in create().
 + Renamed method getGif() to get().
 + Renamed class to AnimGif (from GifCreator).
@@ -78,10 +80,10 @@ class AnimGif
 
 		// Static data
 		self::$errors = array(
-			'ERR00' => 'Not supported with only one source image.',
+			'ERR00' => 'Cannot make animation from a single frame.',
 			'ERR01' => 'Source is not a GIF image.',
 			'ERR02' => 'You have to give image resource variables, image URLs or image binary sources in the $frames array.',
-			'ERR03' => 'Cannot make animation from animated GIF source.',
+			'ERR03' => 'Cannot make animation from animated GIF.',
 		);
 	}
 
@@ -96,7 +98,7 @@ class AnimGif
 	 */
 	public function create($frames = array(), $durations = array(), $loop = 0)
 	{
-		if (!is_array($frames) && !is_array($durations)) {
+		if (!is_array($frames)) {
 			throw new \Exception(VERSION.': '.self::$errors['ERR00']);
 		}
 
@@ -173,7 +175,7 @@ class AnimGif
 
 		for ($i = 0; $i < count($this->frameSources); $i++) {
 		  
-			$this->addGifFrames($i, $durations[$i]);
+			$this->addGifFrames($i, is_array($durations) ? $durations[$i] : $durations);
 		}
 
 		$this->gifAddFooter();
