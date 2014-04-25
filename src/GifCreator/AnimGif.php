@@ -4,6 +4,8 @@
 TODO:
 
 DONE:
++ Oops, also need to fix the default delay. And then also change it to 100ms.
+  (Because browsers seem to have difficulties handling too fast animations.)
 + Anim delay doesn't seem to be set in ms, at all. :-o
   -> Yeah, they ARE NOT in millisecs! See: http://www.w3.org/Graphics/GIF/spec-gif89a.txt
   Fixing the docs.
@@ -108,7 +110,7 @@ class AnimGif
 	 * 
 	 * @return string The GIF string source
 	 */
-	public function create($frames, $durations = 40, $loop = 0)
+	public function create($frames, $durations = 10, $loop = 0)
 	{
 		if (!is_array($frames)) {
 			throw new \Exception(VERSION.': '.self::$errors['ERR00']);
