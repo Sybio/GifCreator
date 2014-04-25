@@ -1,4 +1,4 @@
-*(NOTE: This is mostly a "stylistic" fork of [Clément Guillemain](https://github.com/Sybio)'s nice [GifCreator class](https://github.com/Sybio/GifCreator), for code cosmetics, some API changes (e.g. renaming the class), several small corrections & other minor improvements scattered all over the stuff.)*
+> *NOTE: This is mostly a "stylistic" fork of [Clément Guillemain](https://github.com/Sybio)'s nice [GifCreator class](https://github.com/Sybio/GifCreator), for code cosmetics, some API changes (e.g. renaming the class), several small corrections & other minor improvements scattered all over the stuff.*
 
 ### About 
 
