@@ -21,7 +21,7 @@ $frames = array(
     'http://thisisafakedomain.com/images/pic4.jpg', // URL
 );
 
-// Optionally, create an array containing the duration (in milliseconds) of each frame
+// Optionally, create an array with the durations (in 1/100s units) of every frame
 $durations = array(40, 80, 40, 20);
 
 // Initialize and create the GIF!
