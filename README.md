@@ -2,7 +2,7 @@
 
 ### About 
 
-AnimGif is a PHP class to create an animated GIF -- just list the source images (in various formats), and that's it!
+AnimGif is a PHP class to create an animated GIF -- just list the source images (in various forms), and that's it!
 
 
 ### Usage
