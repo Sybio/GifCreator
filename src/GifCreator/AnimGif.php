@@ -6,7 +6,7 @@ TODO:
   whole module.
 
 DONE:
-+ Renamed encodeAsciiToChar() to word2bin().
++ Renamed encodeAsciiToChar() to word2bin() & fixed its description.
 + Added error + check: 'ERR04' => 'Loading from URLs is disabled by PHP.'.
 + file_exists() -> @is_readable() (Better to take no risk of any PHP output
   in a raw GIF transfer...)
