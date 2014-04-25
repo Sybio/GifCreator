@@ -11,11 +11,11 @@ AnimGif is a PHP class to create an animated GIF -- just list the source images 
 
 ```php
 // Create an array containing file paths, resource vars (initialized with imagecreatefromXXX), 
-// image URLs or even binary code from image files. (All in the order as they should appear.)
+// image URLs or even binary image data. (All in the order as they should appear.)
 $frames = array(
-    imagecreatefrompng("/../images/pic1.png"), // Resource var
-    "/../images/pic2.png", // Image file path
-    file_get_contents("/../images/pic3.jpg"), // Binary source code
+    imagecreatefrompng("/../images/pic1.png"),      // resource var
+    "/../images/pic2.png",                          // image file path
+    file_get_contents("/../images/pic3.jpg"),       // image binary data
     'http://thisisafakedomain.com/images/pic4.jpg', // URL
 );
 
