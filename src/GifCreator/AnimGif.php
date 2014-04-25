@@ -15,11 +15,11 @@ DONE:
   -> Yeah, they ARE NOT in millisecs! See: http://www.w3.org/Graphics/GIF/spec-gif89a.txt
   Fixing the docs.
 1.1:
-+ Fix ERR01 "Source is not a GIF image.": there's a .png in the examples!
++ Fixed ERR01 "Source is not a GIF image.": there's a .png in the examples!
   -> And it does support non-GIF files actually!
   Moved the error check to resource inputs only, and changed it to
   "Resource is not a GIF image.".
-+ create() should iterate $frames with foreach() not for assuming direct
++ create() should iterate $frames with foreach() not with for, assuming direct
   indexes from 0 to < count.
   (The array keys can be anything, and should not affect the results.)
 + Removed unused $mode from reporting ERR02.
@@ -27,7 +27,7 @@ DONE:
 + $frames was incorrectly made an optional arg. of create().
 + Support uniform timing without an array.
 + Separate ERR00 from $durations not being an array.
-+ Fix leftover $GIF_tim in create().
++ Fixed leftover $GIF_tim in create().
 + Renamed method getGif() to get().
 + Renamed class to AnimGif (from GifCreator).
 + Made $this->version a define (VERSION).
