@@ -2,9 +2,12 @@
 
 /* CHANGES by lunakid:
 TODO:
-! Default anim delay doesn't seem to be 40 ms, at all. :-o
 
 DONE:
++ Anim delay doesn't seem to be set in ms, at all. :-o
+  -> Yeah, they ARE NOT in millisecs! See: http://www.w3.org/Graphics/GIF/spec-gif89a.txt
+  Fixing the docs.
+1.1:
 + Fix ERR01 "Source is not a GIF image.": there's a .png in the examples!
   -> And it does support non-GIF files actually!
   Moved the error check to resource inputs only, and changed it to
@@ -41,7 +44,7 @@ DONE:
 
 namespace GifCreator;
 
-define(VERSION, '1.1');
+define(VERSION, '1.1+');
 
 class AnimGif
 {
@@ -100,7 +103,7 @@ class AnimGif
 	 * Create the GIF string
 	 * 
 	 * @param array $frames An array of frame: can be file paths, resource image variables, binary sources or image URLs
-	 * @param array|number $durations The duration (in ms) of each frame, or a single integer for each one.
+	 * @param array|number $durations The duration (in 1/100s) of each frame, or a single integer for each one.
 	 * @param integer $loop Number of GIF loops before stopping animation (Set 0 to get an infinite loop)
 	 * 
 	 * @return string The GIF string source
