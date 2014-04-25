@@ -7,7 +7,7 @@ TODO:
 
 DONE:
 + Added error + check: 'ERR04' => 'Loading from URLs is disabled by PHP.'.
-+ file_exists() -> @file_readable() (Better to take no risk of any PHP output
++ file_exists() -> @is_readable() (Better to take no risk of any PHP output
   in a raw GIF transfer...)
 + Oops, also need to fix the default delay. And then also change it to 100ms.
   (Because browsers seem to have difficulties handling too fast animations.)
@@ -143,7 +143,7 @@ class AnimGif
 	
 			} elseif (is_string($frame)) { // File path or URL or Binary source code
 			     
-				if (@file_readable($frame)) { // file path
+				if (@is_readable($frame)) { // file path
 					$frame = file_get_contents($frame);                    
 				} else if (filter_var($frame, FILTER_VALIDATE_URL)) {
  					if (ini_get('allow_url_fopen')) {
