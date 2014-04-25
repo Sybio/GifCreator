@@ -4,9 +4,9 @@
 TODO:
 ! BTW, unwanted PHP output: I should probably disable display_errors() in the 
   whole module.
-! Also add check for 'allow_url_fopen' before loading from an URL.
 
 DONE:
++ Added error + check: 'ERR04' => 'Loading from URLs is disabled by PHP.'.
 + file_exists() -> @file_readable() (Better to take no risk of any PHP output
   in a raw GIF transfer...)
 + Oops, also need to fix the default delay. And then also change it to 100ms.
@@ -101,8 +101,9 @@ class AnimGif
 		self::$errors = array(
 			'ERR00' => 'Cannot make animation from a single frame.',
 			'ERR01' => 'Resource is not a GIF image.',
-			'ERR02' => 'Only image resource variables, file paths, URLs or GD bitmaps are accepted.',
+			'ERR02' => 'Only image resource variables, file paths, URLs or bitmap binary strings are accepted.',
 			'ERR03' => 'Cannot make animation from animated GIF.',
+			'ERR04' => 'Loading from URLs is disabled by PHP.',
 		);
 	}
 
@@ -142,8 +143,14 @@ class AnimGif
 	
 			} elseif (is_string($frame)) { // File path or URL or Binary source code
 			     
-				if (@file_readable($frame) || filter_var($frame, FILTER_VALIDATE_URL)) { // File path
+				if (@file_readable($frame)) { // file path
 					$frame = file_get_contents($frame);                    
+				} else if (filter_var($frame, FILTER_VALIDATE_URL)) {
+ 					if (ini_get('allow_url_fopen')) {
+						$frame = file_get_contents($frame);
+					} else {
+						throw new \Exception(VERSION.': '.$i.' '.self::$errors['ERR04']);
+					}
 				}
 
 				$resourceImg = imagecreatefromstring($frame);
