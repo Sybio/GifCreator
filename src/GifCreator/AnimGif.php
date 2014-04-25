@@ -377,9 +377,9 @@ class AnimGif
 }
 
 /**
- * Encode an integer to 2-byte binary data
+ * Convert an integer to 2-byte little-endian binary data
  * 
- * @param integer $word: Number to encode
+ * @param integer $word Number to encode
  * 
  * @return string of 2 bytes representing @word as binary data
  */
