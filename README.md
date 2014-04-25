@@ -73,5 +73,5 @@ this class: https://github.com/Sybio/ImageWorkshop.
 
 ### Credits
 
-* László Zsidi: All the tough parts come from his [GIFEncoder.class.php](http://www.phpclasses.org/package/3163) (also found [here, in a Gist](https://gist.github.com/allometry/1438842).) Thanks, Laci!
+* László Zsidi: All the tough parts come from his [GIFEncoder.class.php](http://www.phpclasses.org/package/3163) (also found [here, in a Gist](https://gist.github.com/allometry/1438842)). Thanks, Laci!
 * Clément Guillemain: for the very handy, redesigned (& "classified") API, extensions and nice docs!
