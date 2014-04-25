@@ -6,6 +6,7 @@ TODO:
   whole module.
 
 DONE:
++ Renamed encodeAsciiToChar() to word2bin().
 + Added error + check: 'ERR04' => 'Loading from URLs is disabled by PHP.'.
 + file_exists() -> @is_readable() (Better to take no risk of any PHP output
   in a raw GIF transfer...)
@@ -249,7 +250,7 @@ class AnimGif
 
 			$this->gif .= substr($this->frameSources[0], 6, 7);
 			$this->gif .= substr($this->frameSources[0], 13, $cmap);
-			$this->gif .= "!\377\13NETSCAPE2.0\3\1".encodeAsciiToChar($this->loop)."\0";
+			$this->gif .= "!\377\13NETSCAPE2.0\3\1".word2bin($this->loop)."\0";
 		}
 	}
     
@@ -376,13 +377,13 @@ class AnimGif
 }
 
 /**
- * Encode an ASCII char into a string char
+ * Encode an integer to 2-byte binary data
  * 
- * $param integer $char ASCII char
+ * @param integer $word: Number to encode
  * 
- * @return string
+ * @return string of 2 bytes representing @word as binary data
  */
-function encodeAsciiToChar($char)
+function word2bin($word)
 {
-	return (chr($char & 0xFF).chr(($char >> 8) & 0xFF));
+	return (chr($word & 0xFF).chr(($word >> 8) & 0xFF));
 }
