@@ -60,7 +60,7 @@ file_put_contents('/myfolder/animated.gif', $gif);
 
 ### Behavior
 
-- The transparency is based on the first given frame. It will be saved only if you give multiple frames with the same transparent background.
+- Transparency is based on the first given frame. It will be saved only if you give multiple frames with the same transparent background.
 - The dimensions of the generated GIF are based on the first frame. If you need to resize your frames to get the same dimensions, you can use 
 this class: https://github.com/Sybio/ImageWorkshop.
 
