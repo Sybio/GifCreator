@@ -2,8 +2,13 @@
 
 /* CHANGES by lunakid:
 TODO:
+! BTW, unwanted PHP output: I should probably disable display_errors() in the 
+  whole module.
+! Also add check for 'allow_url_fopen' before loading from an URL.
 
 DONE:
++ file_exists() -> @file_readable() (Better to take no risk of any PHP output
+  in a raw GIF transfer...)
 + Oops, also need to fix the default delay. And then also change it to 100ms.
   (Because browsers seem to have difficulties handling too fast animations.)
 + Anim delay doesn't seem to be set in ms, at all. :-o
@@ -137,7 +142,7 @@ class AnimGif
 	
 			} elseif (is_string($frame)) { // File path or URL or Binary source code
 			     
-				if (file_exists($frame) || filter_var($frame, FILTER_VALIDATE_URL)) { // File path
+				if (@file_readable($frame) || filter_var($frame, FILTER_VALIDATE_URL)) { // File path
 					$frame = file_get_contents($frame);                    
 				}
 
