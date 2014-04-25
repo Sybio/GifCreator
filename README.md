@@ -1,6 +1,4 @@
-*NOTE: This is mostly a "stylistic" fork of Clément Guillemain's nice [GifCreator class](https://github.com/Sybio/GifCreator), for code cosmetics, some API changes (e.g. renaming the class), 
-wording fixes (partly inherited from the original [GIFEncoder](https://gist.github.com/allometry/1438842) 
-from Laci Zsidi), minor corrections & improvements etc.*
+*(NOTE: This is mostly a "stylistic" fork of Clément Guillemain's nice [GifCreator class](https://github.com/Sybio/GifCreator), for code cosmetics, some API changes (e.g. renaming the class), several small corrections & other minor improvements scattered all over the stuff.)*
 
 ### About 
 
