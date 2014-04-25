@@ -101,7 +101,7 @@ class AnimGif
 		self::$errors = array(
 			'ERR00' => 'Cannot make animation from a single frame.',
 			'ERR01' => 'Resource is not a GIF image.',
-			'ERR02' => 'You have to give image resource variables, image URLs or image binary sources in the $frames array.',
+			'ERR02' => 'Only image resource variables, file paths, URLs or GD bitmaps are accepted.',
 			'ERR03' => 'Cannot make animation from animated GIF.',
 		);
 	}
