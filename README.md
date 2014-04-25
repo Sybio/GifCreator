@@ -38,7 +38,7 @@ $anim->create($frames, $durations);
 You can now get the animated GIF binary:
 
 ```php
-$gifBinary = $anim->get();
+$gif = $anim->get();
 ```
 
 **3. Use it:**
@@ -47,14 +47,14 @@ Then you can send it to the browser:
 
 ```php
 header('Content-type: image/gif');
-echo $gifBinary;
+echo $gif;
 exit;
 ```
 
 Or save it as a GIF file:
 
 ```php
-file_put_contents('/myfolder/animated.gif', $gifBinary);
+file_put_contents('/myfolder/animated.gif', $gif);
 ```
 
 
