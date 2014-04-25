@@ -20,13 +20,13 @@ $frames = array(
 );
 
 // Optionally, create an array with the durations (in 1/100s units) of every frame
-$durations = array(40, 80, 40, 20);
+$durations = array(10, 30, 10, 20);
 
 // Initialize and create the GIF!
 $anim = new GifCreator\AnimGif();
 $anim->create($frames, $durations);
 
-// Or, for just a default even 40ms delay:
+// Or, for just a default 50ms even delay:
 //$anim->create($frames);
 
 // Or, for 5 repeats & then stop:
