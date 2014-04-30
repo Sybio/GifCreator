@@ -52,7 +52,7 @@ DONE:
 
 namespace GifCreator;
 
-define(VERSION, '1.1+');
+define('VERSION', '1.1+');
 
 class AnimGif
 {
