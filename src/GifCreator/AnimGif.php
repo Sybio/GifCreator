@@ -155,7 +155,7 @@ class AnimGif
 					}
 				}
 				if (!$frame) {
-					throw new \Exception(VERSION.': '.$i.' '. sprintf(self::$errors['ERR05'], $framename_maybe);
+					throw new \Exception(VERSION.': '.$i.' '. sprintf(self::$errors['ERR05'], $framename_maybe));
 				}
 
 				$resourceImg = imagecreatefromstring($frame);
