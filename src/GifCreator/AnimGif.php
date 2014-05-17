@@ -1,9 +1,9 @@
 <?php
 
-/* CHANGES by lunakid:
+/* CHANGES of the "lunakid fork":
+
 TODO:
-! BTW, unwanted PHP output: I should probably disable display_errors() in the 
-  whole module.
+! See CHANGES.txt.
 
 DONE:
 + Renamed encodeAsciiToChar() to word2bin() & fixed its description.
@@ -105,7 +105,7 @@ class AnimGif
 			'ERR02' => 'Only image resource variables, file paths, URLs or bitmap binary strings are accepted.',
 			'ERR03' => 'Cannot make animation from animated GIF.',
 			'ERR04' => 'Loading from URLs is disabled by PHP.',
-			'ERR05' => 'Failed to load (or empty) image '%s'.',
+			'ERR05' => 'Failed to load or invalid image "%s".',
 		);
 	}
 
@@ -154,11 +154,10 @@ class AnimGif
 						throw new \Exception(VERSION.': '.$i.' '.self::$errors['ERR04']);
 					}
 				}
-				if (!$frame) {
+				if (! ($frame && ($resourceImg = imagecreatefromstring($frame))) )
+				{
 					throw new \Exception(VERSION.': '.$i.' '. sprintf(self::$errors['ERR05'], $framename_maybe));
 				}
-
-				$resourceImg = imagecreatefromstring($frame);
 
 				ob_start();
 				imagegif($resourceImg);
