@@ -226,13 +226,25 @@ class AnimGif
 	}
 
 	/**
-	 * Get the final GIF image string
+	 * Get the resulting GIF image binary
 	 * 
 	 * @return string
 	 */
 	public function get()
 	{
 		return $this->gif;
+	}
+    
+	/**
+	 * Save the resulting GIF to a file.
+	 * 
+	 * @param $filename String Target file path
+	 * 
+	 * @return that of file_put_contents($filename)
+	 */
+	public function save($filename)
+	{
+		return file_put_contents($filename, $this->gif);
 	}
     
 	// Internals
