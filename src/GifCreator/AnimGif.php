@@ -156,7 +156,7 @@ class AnimGif
 					$bin = $frame;
 				}
 				
-				if (! ($bin && ($resourceImg = imagecreatefromstring($frame))) )
+				if (! ($bin && ($resourceImg = imagecreatefromstring($bin))) )
 				{
 					throw new \Exception(VERSION.': '.$i.' ' 
 						. sprintf(self::$errors['ERR05'], substr($frame, 0, 200))); //!! $frame may be binary data, not a name!
