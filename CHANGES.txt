@@ -1,7 +1,7 @@
 TODO:
 
 * Add an index.php frontend for demo and quickstart (synced with the example in the
-README.md).
+README.md), with e.g. scandir("img/") etc.
 
 * Allow less delay values than frames (repeating the last one).
 
