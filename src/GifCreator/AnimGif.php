@@ -102,7 +102,7 @@ class AnimGif
 		self::$errors = array(
 			'ERR00' => 'Cannot make animation from a single frame.',
 			'ERR01' => 'Resource is not a GIF image.',
-			'ERR02' => 'Only image resource variables, file paths, URLs or bitmap binary strings are accepted.',
+			'ERR02' => 'Only image resource variables, file paths, URLs or binary bitmap data are accepted.',
 			'ERR03' => 'Cannot make animation from animated GIF.',
 			'ERR04' => 'Loading from URLs is disabled by PHP.',
 			'ERR05' => 'Failed to load or invalid image "%s".',
