@@ -1,0 +1,10 @@
+TODO:
+
+Add an index.php frontend for demo and quickstart (synced with the example in the
+README.md).
+
+
+------------------------------------------------------------------------------------
+DONE:
+
+(See the GitHub commit/release history: https://github.com/lunakid/AnimGif/commits/)
