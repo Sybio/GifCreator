@@ -105,6 +105,7 @@ class AnimGif
 			'ERR02' => 'Only image resource variables, file paths, URLs or bitmap binary strings are accepted.',
 			'ERR03' => 'Cannot make animation from animated GIF.',
 			'ERR04' => 'Loading from URLs is disabled by PHP.',
+			'ERR05' => 'Failed to load (or empty) image '%s'.',
 		);
 	}
 
@@ -128,7 +129,7 @@ class AnimGif
 
 		$i = 0;
 		foreach ($frames as $frame) {
-		  
+			$framename_maybe = $frame; // save this for reporting load errors
 			if (is_resource($frame)) { // Resource var
 
 				$resourceImg = $frame;
@@ -148,10 +149,13 @@ class AnimGif
 					$frame = file_get_contents($frame);                    
 				} else if (filter_var($frame, FILTER_VALIDATE_URL)) {
  					if (ini_get('allow_url_fopen')) {
-						$frame = file_get_contents($frame);
+						$frame = @file_get_contents($frame);
 					} else {
 						throw new \Exception(VERSION.': '.$i.' '.self::$errors['ERR04']);
 					}
+				}
+				if (!$frame) {
+					throw new \Exception(VERSION.': '.$i.' '. sprintf(self::$errors['ERR05'], $framename_maybe);
 				}
 
 				$resourceImg = imagecreatefromstring($frame);
