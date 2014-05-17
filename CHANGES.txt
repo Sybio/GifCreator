@@ -1,7 +1,5 @@
 TODO:
 
-* Add API call $->save($name) in addition to get().
-
 ! In local testing I had a strange issue with by-frame delays: the first image eats
   up the first two delays, and is shown for the sum of those two numbers... :-o
   -> And I seem to be unable to reproduce it now! :-o
