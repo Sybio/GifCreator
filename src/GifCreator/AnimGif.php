@@ -82,9 +82,9 @@ class AnimGif
 	private $dis;
 
 	/**
-	* @var integer Gif color
+	* @var integer Gif transparent color index
 	*/
-	private $colour;
+	private $transparent_color;
 
 	/**
 	* @var array
@@ -172,7 +172,7 @@ class AnimGif
 			}
 
 			if ($i == 0) {
-				$colour = imagecolortransparent($resourceImg);
+				$this->transparent_color = imagecolortransparent($resourceImg);
 			}
 
 			for ($j = (13 + 3 * (2 << (ord($this->frameSources[$i] { 10 }) & 0x07))), $k = TRUE; $k; $j++) {
@@ -198,12 +198,6 @@ class AnimGif
 			++$i;
 		}//foreach
 
-		if (isset($colour)) {
-			$this->colour = $colour;	    
-		} else {
-			$red = $green = $blue = 0;
-			$this->colour = ($red > -1 && $green > -1 && $blue > -1) ? ($red | ($green << 8) | ($blue << 16)) : -1;
-		}
 
 		$this->gifAddHeader();
 
@@ -240,7 +234,7 @@ class AnimGif
 		$this->imgBuilt = false;
 		$this->loop = 0;
 		$this->dis = 2;
-		$this->colour = -1;
+		$this->transparent_colorc = -1;
 	}
 	    
 	/**
@@ -281,13 +275,13 @@ class AnimGif
 
 		$Locals_ext = "!\xF9\x04".chr(($this->dis << 2) + 0).chr(($d >> 0 ) & 0xFF).chr(($d >> 8) & 0xFF)."\x0\x0";
 
-		if ($this->colour > -1 && ord($this->frameSources[$i] { 10 }) & 0x80) {
+		if ($this->transparent_color > -1 && ord($this->frameSources[$i] { 10 }) & 0x80) {
 		  
 			for ($j = 0; $j < (2 << (ord($this->frameSources[$i] { 10 } ) & 0x07)); $j++) {
 			 
-				if (ord($Locals_rgb { 3 * $j + 0 }) == (($this->colour >> 16) & 0xFF) &&
-					ord($Locals_rgb { 3 * $j + 1 }) == (($this->colour >> 8) & 0xFF) &&
-					ord($Locals_rgb { 3 * $j + 2 }) == (($this->colour >> 0) & 0xFF)
+				if (ord($Locals_rgb { 3 * $j + 0 }) == (($this->transparent_color >> 16) & 0xFF) &&
+					ord($Locals_rgb { 3 * $j + 1 }) == (($this->transparent_color >> 8) & 0xFF) &&
+					ord($Locals_rgb { 3 * $j + 2 }) == (($this->transparent_color >> 0) & 0xFF)
 				) {
 					$Locals_ext = "!\xF9\x04".chr(($this->dis << 2) + 1).chr(($d >> 0) & 0xFF).chr(($d >> 8) & 0xFF).chr($j)."\x0";
 					break;
