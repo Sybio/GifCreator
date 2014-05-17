@@ -129,7 +129,6 @@ class AnimGif
 
 		$i = 0;
 		foreach ($frames as $frame) {
-			$framename_maybe = $frame; // save this for reporting load errors
 			if (is_resource($frame)) { // Resource var
 
 				$resourceImg = $frame;
@@ -146,17 +145,21 @@ class AnimGif
 			} elseif (is_string($frame)) { // File path or URL or Binary source code
 			     
 				if (@is_readable($frame)) { // file path
-					$frame = file_get_contents($frame);                    
+					$bin = file_get_contents($frame);                    
 				} else if (filter_var($frame, FILTER_VALIDATE_URL)) {
  					if (ini_get('allow_url_fopen')) {
-						$frame = @file_get_contents($frame);
+						$bin = @file_get_contents($frame);
 					} else {
 						throw new \Exception(VERSION.': '.$i.' '.self::$errors['ERR04']);
 					}
+				} else {
+					$bin = $frame;
 				}
-				if (! ($frame && ($resourceImg = imagecreatefromstring($frame))) )
+				
+				if (! ($bin && ($resourceImg = imagecreatefromstring($frame))) )
 				{
-					throw new \Exception(VERSION.': '.$i.' '. sprintf(self::$errors['ERR05'], $framename_maybe));
+					throw new \Exception(VERSION.': '.$i.' ' 
+						. sprintf(self::$errors['ERR05'], substr($frame, 0, 200))); //!! $frame may be binary data, not a name!
 				}
 
 				ob_start();
