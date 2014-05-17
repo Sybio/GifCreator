@@ -1,5 +1,8 @@
 TODO:
 
+* In local testing I had a strange issue with by-frame delays: the first image eats
+up the first two delays, and is shown for the sum of those two numbers... :-o
+
 * Add an index.php frontend for demo and quickstart (synced with the example in the
 README.md, AND ALSO THE ONE AT SO!), with saving a test gif file and scandir("img/") 
 etc.
