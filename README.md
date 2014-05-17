@@ -1,8 +1,8 @@
-> *NOTE: This is mostly a "stylistic" fork of [Clément Guillemain](https://github.com/Sybio)'s nice [GifCreator class](https://github.com/Sybio/GifCreator), for code cosmetics, some API changes (e.g. renaming the class), several small corrections & other minor improvements scattered all over the stuff.*
+> *NOTE: This is a fork of [Clément Guillemain](https://github.com/Sybio)'s nice [GifCreator class](https://github.com/Sybio/GifCreator), with some API changes (class rename, even more flexible parameters etc.), somewhat better error handling, several small corrections, code cosmetics & other minor improvements scattered all across.*
 
 ### About 
 
-AnimGif is a PHP class to create an animated GIF -- just list the source images (in various forms), and that's it!
+AnimGif is a PHP class to create animated GIFs -- just list the source images (in various forms), and that's it!
 
 
 ### Usage
@@ -67,7 +67,7 @@ this class: https://github.com/Sybio/ImageWorkshop.
 
 ### Dependencies
 
-* PHP 5.3 (for namespace support)
+* PHP 5.3 (for namespace support & whatnot; noone still shamelessly uses PHP < 5.3, right?!)
 * GD (`imagecreatefromstring`, `imagegif`, `imagecolortransparent`)
 
 
