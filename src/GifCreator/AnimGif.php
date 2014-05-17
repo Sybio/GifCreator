@@ -56,6 +56,8 @@ define('VERSION', '1.1+');
 
 class AnimGif
 {
+	const DEFAULT_DURATION = 10;
+
 	/**
 	* @var string The generated (binary) image
 	*/
@@ -118,8 +120,10 @@ class AnimGif
 	 * 
 	 * @return string The GIF string source
 	 */
-	public function create($frames, $durations = 10, $loop = 0)
+	public function create($frames, $durations = self::DEFAULT_DURATION, $loop = 0)
 	{
+		$last_duration = self::DEFAULT_DURATION; // used only if $durations is an array
+		
 		if (!is_array($frames)) {
 			throw new \Exception(VERSION.': '.self::$errors['ERR00']);
 		}
@@ -203,7 +207,15 @@ class AnimGif
 
 		for ($i = 0; $i < count($this->frameSources); $i++) {
 
-			$this->addGifFrames($i, is_array($durations) ? $durations[$i] : $durations);
+			// Use the last delay, if none has been specified for the current frame
+			if (is_array($durations)) {
+				$d = (empty($durations[$i]) ? $last_duration : $durations[$i]);
+				$last_duration = $d;
+			} else {
+				$d = $durations;
+			}
+
+			$this->addGifFrames($i, $d);
 		}
 
 		$this->gifAddFooter();
@@ -273,7 +285,7 @@ class AnimGif
 		$Global_rgb = substr($this->frameSources[ 0], 13, 3 * (2 << (ord($this->frameSources[ 0] { 10 }) & 0x07)));
 		$Locals_rgb = substr($this->frameSources[$i], 13, 3 * (2 << (ord($this->frameSources[$i] { 10 }) & 0x07)));
 
-		$Locals_ext = "!\xF9\x04".chr(($this->dis << 2) + 0).chr(($d >> 0 ) & 0xFF).chr(($d >> 8) & 0xFF)."\x0\x0";
+		$Locals_ext = "!\xF9\x04" . chr(($this->dis << 2) + 0) . word2bin($d) . "\x0\x0";
 
 		if ($this->transparent_color > -1 && ord($this->frameSources[$i] { 10 }) & 0x80) {
 		  
