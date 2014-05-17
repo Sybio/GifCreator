@@ -1,6 +1,6 @@
 TODO:
 
-* Do file_put_contents($name) for API call $->gif($name).
+* Add API call $->save($name) in addition to get().
 
 ! In local testing I had a strange issue with by-frame delays: the first image eats
   up the first two delays, and is shown for the sum of those two numbers... :-o
