@@ -2,10 +2,12 @@
 
 /* CHANGES of the "lunakid fork":
 
-TODO:
-! See CHANGES.txt.
+See CHANGES.txt for TODO items and release notes!
 
 DONE:
++ See the GitHub commit log for a detailed change history!
+--------
+Old manual change log (parlty parallel with the GitHub commit log):
 + Renamed encodeAsciiToChar() to word2bin() & fixed its description.
 + Added error + check: 'ERR04' => 'Loading from URLs is disabled by PHP.'.
 + file_exists() -> @is_readable() (Better to take no risk of any PHP output
