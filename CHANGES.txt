@@ -6,6 +6,9 @@ etc.
 
 * Allow less delay values than frames (repeating the last one).
 
+* To avoid unwanted "in-band" PHP output, I should probably disable display_errors()
+in the whole module (restoring it on normal exit).
+
 
 ------------------------------------------------------------------------------------
 DONE:
