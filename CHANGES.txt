@@ -1,7 +1,8 @@
 TODO:
 
 * Add an index.php frontend for demo and quickstart (synced with the example in the
-README.md), with e.g. scandir("img/") etc.
+README.md, AND ALSO THE ONE AT SO!), with saving a test gif file and scandir("img/") 
+etc.
 
 * Allow less delay values than frames (repeating the last one).
 
