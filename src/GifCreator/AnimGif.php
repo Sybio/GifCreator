@@ -54,7 +54,7 @@ Old manual change log (parlty parallel with the GitHub commit log):
 
 namespace GifCreator;
 
-define('VERSION', '1.1+');
+const 'VERSION' = '1.2-pre+'; // "rolling pre-release"...
 
 class AnimGif
 {
