@@ -16,7 +16,7 @@ $frames = array(
     imagecreatefrompng("/../images/pic1.png"),      // resource var
     "/../images/pic2.png",                          // image file path
     file_get_contents("/../images/pic3.jpg"),       // image binary data
-    'http://thisisafakedomain.com/images/pic4.jpg', // URL
+    "http://thisisafakedomain.com/images/pic4.jpg", // URL
 );
 
 // Optionally, create an array with the durations (in 1/100s units) of every frame
@@ -46,7 +46,7 @@ $gif = $anim->get();
 Then you can send it to the browser:
 
 ```php
-header('Content-type: image/gif');
+header("Content-type: image/gif");
 echo $gif;
 exit;
 ```
@@ -54,7 +54,7 @@ exit;
 Or save it as a GIF file:
 
 ```php
-file_put_contents('/myfolder/animated.gif', $gif);
+file_put_contents("animated.gif", $gif);
 ```
 
 
