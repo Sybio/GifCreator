@@ -42,7 +42,7 @@ $anim->create($frames, $durations);
 //$anim->create($frames, $durations, 5); // default: infinite looping
 ```
 
-**2. Get the result:**
+**2. Get/use the result:**
 
 You can now get the animated GIF binary:
 
@@ -50,9 +50,7 @@ You can now get the animated GIF binary:
 $gif = $anim->get();
 ```
 
-**3. Use it:**
-
-Then you might send it directly to the browser:
+...and e.g. send it directly to the browser:
 
 ```php
 header("Content-type: image/gif");
