@@ -102,40 +102,62 @@ class AnimGif
 	{
 		$this->reset();
 
-		// Static data
 		self::$errors = array(
-			'ERR00' => 'Cannot make animation from a single frame.',
+			'ERR00' => 'Need at least 2 frames for an animation.',
 			'ERR01' => 'Resource is not a GIF image.',
 			'ERR02' => 'Only image resource variables, file paths, URLs or binary bitmap data are accepted.',
 			'ERR03' => 'Cannot make animation from animated GIF.',
 			'ERR04' => 'Loading from URLs is disabled by PHP.',
-			'ERR05' => 'Failed to load or invalid image "%s".',
+			'ERR05' => 'Failed to load or invalid image (dir): "%s".',
 		);
 	}
 
 	/**
-	 * Create the GIF string
+	 * Create animated GIF from source images
 	 * 
-	 * @param array $frames An array of frame: can be file paths, resource image variables, binary sources or image URLs
-	 * @param array|number $durations The duration (in 1/100s) of each frame, or a single integer for each one.
-	 * @param integer $loop Number of GIF loops before stopping animation (Set 0 to get an infinite loop)
+	 * @param array $frames The source iamges: can be a local dir path, or an array  
+	 *                      of file paths, resource image variables, binary data or image URLs.
+	 * @param array|number $durations The duration (in 1/100s) of the individual frames, 
+	 *                      or a single integer for each one.
+	 * @param integer $loop Number of loops before stopping the animation (set to 0 for an infinite loop).
 	 * 
-	 * @return string The GIF string source
+	 * @return string The resulting GIF binary data.
 	 */
 	public function create($frames, $durations = self::DEFAULT_DURATION, $loop = 0)
 	{
 		$last_duration = self::DEFAULT_DURATION; // used only if $durations is an array
 		
-		if (!is_array($frames)) {
-			throw new \Exception(VERSION.': '.self::$errors['ERR00']);
-		}
-
 		$this->loop = ($loop > -1) ? $loop : 0;
 		$this->dis = 2;
 
+		// Check if $frames is a dir; get all files in ascending order if yes (else die):
+		if (!is_array($frames)) {
+			$frames_dir = $frames;
+			if (@is_dir($frames_dir)) {
+				if ($frames = scandir($frames_dir)) {
+					$frames = array_filter($frames, function($x) { return $x != "." && $x != ".."; });
+
+					array_walk($frames, function(&$x, $i) use ($frames_dir) { 
+						$x = "$frames_dir/$x"; });
+
+				}
+			}
+				
+			if (!is_array($frames)) {
+				throw new \Exception(VERSION.': '
+					. sprintf(self::$errors['ERR05'], $frames_dir)); // $frame is expected to be a string here; see the other ERR05 case!
+			}
+		}
+
+		assert(is_array($frames));
+
+		if (sizeof($frames) < 2) {
+			throw new \Exception(VERSION.': '.self::$errors['ERR00']);
+		}
+
 		$i = 0;
 		foreach ($frames as $frame) {
-			if (is_resource($frame)) { // Resource var
+			if (is_resource($frame)) { // in-memory image resource (hopefully)
 
 				$resourceImg = $frame;
 
@@ -148,7 +170,7 @@ class AnimGif
 					throw new \Exception(VERSION.': '.$i.' '.self::$errors['ERR01']);
 				}
 	
-			} elseif (is_string($frame)) { // File path or URL or Binary source code
+			} elseif (is_string($frame)) { // file path, URL or binary data
 			     
 				if (@is_readable($frame)) { // file path
 					$bin = file_get_contents($frame);                    
