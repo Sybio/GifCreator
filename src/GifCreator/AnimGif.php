@@ -54,7 +54,7 @@ Old (pre-1.2) manual change log (partly parallel with the GitHub commit log):
 
 namespace GifCreator;
 
-const VERSION = '1.3-pre+'; // "rolling pre-release"... ;)
+const VERSION = '1.3';
 
 class AnimGif
 {
@@ -244,7 +244,7 @@ class AnimGif
 
 		$this->gifAddFooter();
 
-		return $this->gif;
+		return $this;
 	}
 
 	/**
