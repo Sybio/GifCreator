@@ -247,26 +247,26 @@ class AnimGif
 		return file_put_contents($filename, $this->gif);
 	}
     
-	// Internals
-	// ===================================================================================
-
 	/**
-	 * Reset and clean the current object (only used by the ctor. currently)
+	 * Clean-up the current object (also used by the ctor.)
 	 */
 	public function reset()
 	{
-		$this->frameSources;
+		$this->frameSources = null;
 		$this->gif = 'GIF89a'; // the GIF header
 		$this->imgBuilt = false;
 		$this->loop = 0;
 		$this->dis = 2;
-		$this->transparent_colorc = -1;
+		$this->transparent_color = -1;
 	}
 	    
+	// Internals
+	// ===================================================================================
+
 	/**
 	 * Add the header gif string in its source
 	 */
-	public function gifAddHeader()
+	protected function gifAddHeader()
 	{
 		$cmap = 0;
 
@@ -286,7 +286,7 @@ class AnimGif
 	 * @param integer $i
 	 * @param integer $d
 	 */
-	public function addGifFrames($i, $d)
+	protected function addGifFrames($i, $d)
 	{
 		$Locals_str = 13 + 3 * (2 << (ord($this->frameSources[ $i ] { 10 }) & 0x07));
 
@@ -371,7 +371,7 @@ class AnimGif
 	/**
 	 * Add the gif string footer char
 	 */
-	public function gifAddFooter()
+	protected function gifAddFooter()
 	{
 		$this->gif .= ';';
 	}
@@ -385,7 +385,7 @@ class AnimGif
 	 * 
 	 * @return integer
 	 */
-	public function gifBlockCompare($globalBlock, $localBlock, $length)
+	protected function gifBlockCompare($globalBlock, $localBlock, $length)
 	{
 		for ($i = 0; $i < $length; $i++) {
 		  
