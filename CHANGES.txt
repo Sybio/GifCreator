@@ -4,15 +4,13 @@ TODO:
   up the first two delays, and is shown for the sum of those two numbers... :-o
   -> And I seem to be unable to reproduce it now! :-o
 
-* Accept a local dir for the image list. (Do - & warn about - explicit sorting if 
-  per-frame delays are specified.)
+* Warn about explicit sorting if per-frame delays are specified for a dir source?
 
-* Add an index.php frontend for demo and quickstart (synced with the example in the
-  README.md, AND ALSO THE ONE AT SO!), with saving a test gif file and scandir("img/") 
-  etc.
+* Sync the index.php (demo & quickstart frontend) with the examples in README.md 
+  AND ALSO THE ONE AT SO!
 
 * To avoid unwanted "in-band" PHP output, I should probably disable display_errors()
-  in the whole module (restoring it on normal exit).
+  in the whole module (restoring it on normal exit)...
 
 
 ------------------------------------------------------------------------------------
