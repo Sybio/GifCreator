@@ -7,7 +7,7 @@ AnimGif is a PHP class to create animated GIFs -- just list the source images (i
 
 ### Usage
 
-**1. Creation:**
+**1. Creation/setup:**
 
 ```php
 // Use an array containing file paths, resource vars (initialized with imagecreatefromXXX), 
