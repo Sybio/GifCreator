@@ -28,7 +28,7 @@ $durations = array(20, 30, 10, 10);
 // Or, with the shorthand form (omitting the repetitions):
 //$durations = array(20, 30, 10);
 // Or, even:
-$durations = array(250, null, null, 500);
+//$durations = array(250, null, null, 500);
 
 
 // Initialize and create the GIF!
