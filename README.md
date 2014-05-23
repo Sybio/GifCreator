@@ -10,8 +10,8 @@ AnimGif is a PHP class to create animated GIFs -- just list the source images (i
 **1. Creation:**
 
 ```php
-// Create an array containing file paths, resource vars (initialized with imagecreatefromXXX), 
-// image URLs or even binary image data. (All in the order as they should appear.)
+// Use an array containing file paths, resource vars (initialized with imagecreatefromXXX), 
+// image URLs or binary image data.
 $frames = array(
     imagecreatefrompng("/../images/pic1.png"),      // resource var
     "/../images/pic2.png",                          // image file path
@@ -19,14 +19,20 @@ $frames = array(
     "http://thisisafakedomain.com/images/pic4.jpg", // URL
 );
 
-// Optionally, create an array with the durations (in 1/100s units) of every frame
-$durations = array(10, 30, 10, 20);
+// Or, load the image files from a dir (and sort them):
+//$frames = "../images";
+
+// Optionally, set the duration (in 1/100s units) for each frame
+$durations = array(20, 30, 10, 10);
+
+// Or, with the shorthand form (omitting the repetitions):
+$durations = array(20, 30, 10);
 
 // Initialize and create the GIF!
 $anim = new GifCreator\AnimGif();
 $anim->create($frames, $durations);
 
-// Or, for just a default 100ms even delay:
+// Or, for just use a default 100ms even delay:
 //$anim->create($frames);
 
 // Or, for 5 repeats & then stop:
@@ -43,7 +49,7 @@ $gif = $anim->get();
 
 **3. Use it:**
 
-Then you can send it to the browser:
+Then you might send it directly to the browser:
 
 ```php
 header("Content-type: image/gif");
@@ -51,7 +57,7 @@ echo $gif;
 exit;
 ```
 
-Or save it as a GIF file:
+Or save it to a file:
 
 ```php
 file_put_contents("animated.gif", $gif);
@@ -60,9 +66,8 @@ file_put_contents("animated.gif", $gif);
 
 ### Behavior
 
-- Transparency is based on the first given frame. It will be saved only if you give multiple frames with the same transparent background.
-- The dimensions of the generated GIF are based on the first frame. If you need to resize your frames to get the same dimensions, you can use 
-this class: https://github.com/Sybio/ImageWorkshop.
+- Transparency is based on the first frame. [!!NOT VERIFIED: "It will be saved only if you give multiple frames with the same transparent background"]
+- The dimensions of the generated GIF are based on the first frame, too. If you need to resize your images to get the same dimensions, you can use this class: https://github.com/Sybio/ImageWorkshop.
 
 
 ### Dependencies
