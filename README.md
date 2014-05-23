@@ -60,10 +60,10 @@ echo $gif;
 exit;
 ```
 
-Or save it to a file:
+Or just save it to a file:
 
 ```php
-file_put_contents("animated.gif", $gif);
+$anim->save("animated.gif");
 ```
 
 
