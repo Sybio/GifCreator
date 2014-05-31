@@ -19,29 +19,28 @@ $frames = array(
     "http://thisisafakedomain.com/images/pic4.jpg", // URL
 );
 
-// Or, load the image files from a dir (sorted):
+// Or: load images from a dir (sorted, skipping .files):
 //$frames = "../images";
 
-// Optionally, set the duration (in 1/100s units) for each frame
+// Optionally: set different durations (in 1/100s units) for each frame
 $durations = array(20, 30, 10, 10);
 
-// Or, with the shorthand form (omitting the repetitions):
-//$durations = array(20, 30, 10);
-// Or, even:
+// Or: you can leave off repeated values from the end:
+//$durations = array(20, 30, 10); // use 10 for the rest
+// Or: use 'null' anywhere to re-apply the previous delay:
 //$durations = array(250, null, null, 500);
 ```
 
 **2. Create the GIF:**
 
 ``` php
-// Initialize and create the GIF!
 $anim = new GifCreator\AnimGif();
 $anim->create($frames, $durations);
 
-// Or, for just use a default 100ms even delay:
+// Or: using the default 100ms even delay:
 //$anim->create($frames);
 
-// Or, for 5 repeats & then stop:
+// Or: loop 5 times, then stop:
 //$anim->create($frames, $durations, 5); // default: infinite looping
 ```
 
