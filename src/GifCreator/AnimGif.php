@@ -54,7 +54,7 @@ Old (pre-1.2) manual change log (partly parallel with the GitHub commit log):
 
 namespace GifCreator;
 
-const VERSION = '1.3';
+const VERSION = '1.3+';
 
 class AnimGif
 {
@@ -135,11 +135,13 @@ class AnimGif
 			$frames_dir = $frames;
 			if (@is_dir($frames_dir)) {
 				if ($frames = scandir($frames_dir)) {
-					$frames = array_filter($frames, function($x) { return $x != "." && $x != ".."; });
+					$frames = array_filter($frames, function($x) { 
+						// Should these two below be selectable?
+						return $x[0] != "."; // Or: $x != "." && $x != "..";
+					});
 
 					array_walk($frames, function(&$x, $i) use ($frames_dir) { 
 						$x = "$frames_dir/$x"; });
-
 				}
 			}
 				
