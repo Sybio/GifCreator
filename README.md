@@ -1,4 +1,4 @@
-> *NOTE: This is a fork of [Clément Guillemain](https://github.com/Sybio)'s nice [GifCreator class](https://github.com/Sybio/GifCreator), with some API changes (class & some methods renamed, some added, more flexible (and robust) parameter handling etc.), better error handling, several small corrections, code cosmetics & other minor improvements scattered all across.*
+> *NOTE: This is a fork of [Clément Guillemain](https://github.com/Sybio)'s nice [GifCreator class](https://github.com/Sybio/GifCreator), with some API changes (class rename, new & updated methods, more flexible (and robust) parameter handling etc.), better error handling, several small corrections, code cosmetics & other improvements scattered all across.*
 
 ### About 
 
@@ -7,7 +7,7 @@ AnimGif is a PHP class to create animated GIFs -- just list the source images (i
 
 ### Usage
 
-**1. Creation/setup:**
+**1. Inputs:**
 
 ```php
 // Use an array containing file paths, resource vars (initialized with imagecreatefromXXX), 
@@ -19,7 +19,7 @@ $frames = array(
     "http://thisisafakedomain.com/images/pic4.jpg", // URL
 );
 
-// Or, load the image files from a dir (and sort them):
+// Or, load the image files from a dir (sorted):
 //$frames = "../images";
 
 // Optionally, set the duration (in 1/100s units) for each frame
@@ -29,8 +29,11 @@ $durations = array(20, 30, 10, 10);
 //$durations = array(20, 30, 10);
 // Or, even:
 //$durations = array(250, null, null, 500);
+```
 
+**2. Create the GIF:**
 
+``` php
 // Initialize and create the GIF!
 $anim = new GifCreator\AnimGif();
 $anim->create($frames, $durations);
@@ -42,7 +45,7 @@ $anim->create($frames, $durations);
 //$anim->create($frames, $durations, 5); // default: infinite looping
 ```
 
-**2. Get/use the result:**
+**3. Get/use the result:**
 
 You can now get the animated GIF binary:
 
