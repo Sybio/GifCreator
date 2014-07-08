@@ -88,6 +88,8 @@ class GifCreator
             
             throw new \Exception($this->version.': '.$this->errors['ERR00']);
 		}
+		
+		$this->frameSources=array();
         
 		$this->loop = ($loop > -1) ? $loop : 0;
 		$this->dis = 2;
