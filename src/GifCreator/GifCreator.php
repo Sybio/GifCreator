@@ -334,7 +334,7 @@ class GifCreator
      */
     public function reset()
     {
-        $this->frameSources;
+        $this->frameSources=[];
         $this->gif = 'GIF89a'; // the GIF header
         $this->imgBuilt = false;
         $this->loop = 0;
