@@ -119,7 +119,7 @@ class GifCreator
                  
 			} else { // Fail
                 
-                throw new \Exception($this->version.': '.$this->errors['ERR02'].' ('.$mode.')');
+                throw new \Exception($this->version.': '.$this->errors['ERR02']);//.' ('.$mode.')'?
 			}
             
             if ($i == 0) {
