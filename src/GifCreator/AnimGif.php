@@ -300,7 +300,9 @@ class AnimGif
 
 			$this->gif .= substr($this->frameSources[0], 6, 7);
 			$this->gif .= substr($this->frameSources[0], 13, $cmap);
-			$this->gif .= "!\377\13NETSCAPE2.0\3\1".word2bin($this->loop)."\0";
+      
+      if( $this->loop !== 1 )
+        $this->gif .= "!\377\13NETSCAPE2.0\3\1".word2bin($this->loop)."\0";
 		}
 	}
     
