@@ -79,8 +79,8 @@ class GifCreator
      * @param array $frames An array of frame: can be file paths, resource image variables, binary sources or image URLs
      * @param array $durations An array containing the duration of each frame (in centiseconds)
      * @param integer $loop Number of GIF loops before stopping animation (Set 0 to get an infinite loop)
-     *
      * @return string The GIF string source
+     * @throws \Exception
      */
     public function create($frames = array(), $durations = array(), $loop = 0)
     {
@@ -185,8 +185,6 @@ class GifCreator
      */
     public function gifAddHeader()
     {
-        $cmap = 0;
-
         if (ord($this->frameSources[0] { 10 }) & 0x80) {
 
             $cmap = 3 * (2 << (ord($this->frameSources[0] { 10 }) & 0x07));
@@ -237,6 +235,7 @@ class GifCreator
                 }
             }
         }
+        $Locals_img = '';
 
         switch ($Locals_tmp { 0 }) {
 
@@ -254,7 +253,6 @@ class GifCreator
 
             break;
         }
-
         if (ord($this->frameSources[$i] { 10 }) & 0x80 && $this->imgBuilt) {
 
             if ($Global_len == $Locals_len) {
@@ -328,6 +326,7 @@ class GifCreator
      *
      * $param integer $char ASCII char
      *
+     * @param $char
      * @return string
      */
     public function encodeAsciiToChar($char)
