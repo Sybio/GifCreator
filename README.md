@@ -1,3 +1,5 @@
+> *NOTE: This is a fork of [Clément Guillemain](https://github.com/Sybio)'s nice [GifCreator class](https://github.com/Sybio/GifCreator), with some minor bug fixes and most pull requests merged together.
+
 # ================================
 # GifCreator
 # ================================
