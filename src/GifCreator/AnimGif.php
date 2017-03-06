@@ -5,13 +5,13 @@
 See CHANGES.txt for TODO items and release notes!
 
 DONE:
-+ See the GitHub commit log for a detailed change history!
++ See the GitHub commit log for the most recent (& most detailed) change history!
 --------
 Old (pre-1.2) manual change log (partly parallel with the GitHub commit log):
 + Renamed encodeAsciiToChar() to word2bin() & fixed its description.
 + Added error + check: 'ERR04' => 'Loading from URLs is disabled by PHP.'.
 + file_exists() -> @is_readable() (Better to take no risk of any PHP output
-  in a raw GIF transfer...)
+  in a raw GIF HTTP response...)
 + Oops, also need to fix the default delay. And then also change it to 100ms.
   (Because browsers seem to have difficulties handling too fast animations.)
 + Anim delay doesn't seem to be set in ms, at all. :-o
@@ -61,32 +61,32 @@ class AnimGif
 	const DEFAULT_DURATION = 10;
 
 	/**
-	* @var string The generated (binary) image
+	* @var string: The generated (binary) image
 	*/
 	private $gif;
 
 	/**
-	* @var boolean Has the image been built or not
+	* @var boolean: Has an image (frame) been added already?
 	*/
 	private $imgBuilt;
 
 	/**
-	* @var array Frames string sources
+	* @var array or string: Frame sources like filenames, URLs or a dir
 	*/
 	private $frameSources;
 
 	/**
-	* @var integer Gif loop
+	* @var integer: Gif loop count
 	*/
 	private $loop;
 
 	/**
-	* @var integer Gif dis [!!?]
+	* @var integer: Gif frame disposal method
 	*/
 	private $dis;
 
 	/**
-	* @var integer Gif transparent color index
+	* @var integer: Gif transparent color index
 	*/
 	private $transparent_color;
 
@@ -127,8 +127,9 @@ class AnimGif
 	{
 		$last_duration = self::DEFAULT_DURATION; // used only if $durations is an array
 		
-		$this->loop = ($loop > -1) ? $loop : 0;
-		$this->dis = 2;
+		$this->loop = ($loop > -1) ? $loop : 0; // Negatives would be fine for the GIF istelf (all unsigned!), 
+		                                        // but better not take a chance with the bit-ops etc. later.
+		$this->dis = 2; // "reset to bgnd." (http://www.matthewflickinger.com/lab/whatsinagif/animation_and_transparency.asp)
 
 		// Check if $frames is a dir; get all files in ascending order if yes (else die):
 		if (!is_array($frames)) {
@@ -145,9 +146,9 @@ class AnimGif
 				}
 			}
 				
-			if (!is_array($frames)) {
+			if (!is_array($frames)) { //!!
 				throw new \Exception(VERSION.': '
-					. sprintf(self::$errors['ERR05'], $frames_dir)); // $frame is expected to be a string here; see the other ERR05 case!
+					. sprintf(self::$errors['ERR05'], $frames_dir)); // $frames is expected to be a string here; see the other ERR05 case!
 			}
 		}
 
@@ -233,7 +234,7 @@ class AnimGif
 
 		for ($i = 0; $i < count($this->frameSources); $i++) {
 
-			// Use the last delay, if none has been specified for the current frame
+			// Re-use the last delay if none has been specified for the current frame.
 			if (is_array($durations)) {
 				$d = (empty($durations[$i]) ? $last_duration : $durations[$i]);
 				$last_duration = $d;
@@ -300,17 +301,16 @@ class AnimGif
 
 			$this->gif .= substr($this->frameSources[0], 6, 7);
 			$this->gif .= substr($this->frameSources[0], 13, $cmap);
-      
-      if( $this->loop !== 1 )
-        $this->gif .= "!\377\13NETSCAPE2.0\3\1".word2bin($this->loop)."\0";
+			if ($this->loop !== 1) // Only add the looping extension if really looping
+				$this->gif .= "!\xFF\x0BNETSCAPE2.0\0x03\0x01".word2bin($this->loop)."\x0";
 		}
 	}
     
 	/**
 	 * Add the frame sources to the GIF string
 	 * 
-	 * @param integer $i
-	 * @param integer $d
+	 * @param integer $i: index of frame source
+	 * @param integer $d: delay time (frame display duration)
 	 */
 	protected function addGifFrames($i, $d)
 	{
@@ -403,7 +403,7 @@ class AnimGif
 	}
     
 	/**
-	 * Compare two block and return the version
+	 * Compare two blocks and return 1 if they are equal, 0 if differ.
 	 * 
 	 * @param string $globalBlock
 	 * @param string $localBlock
