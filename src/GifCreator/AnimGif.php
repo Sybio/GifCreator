@@ -71,7 +71,7 @@ class AnimGif
 	private $imgBuilt;
 
 	/**
-	* @var array or string: Frame sources like filenames, URLs or a dir
+	* @var array or string: Frame sources like filenames, URLs, bin. data, or a folder name
 	*/
 	private $frameSources;
 
@@ -119,7 +119,7 @@ class AnimGif
 	 *                      of file paths, resource image variables, binary data or image URLs.
 	 * @param array|number $durations The duration (in 1/100s) of the individual frames, 
 	 *                      or a single integer for each one.
-	 * @param integer $loop Number of loops before stopping the animation (set to 0 for an infinite loop).
+	 * @param integer $loop Number of loops before stopping the animation (set to 0 for infinite looping).
 	 * 
 	 * @return string The resulting GIF binary data.
 	 */
@@ -127,8 +127,8 @@ class AnimGif
 	{
 		$last_duration = self::DEFAULT_DURATION; // used only if $durations is an array
 		
-		$this->loop = ($loop > -1) ? $loop : 0; // Negatives would be fine for the GIF istelf (all unsigned!), 
-		                                        // but better not take a chance with the bit-ops etc. later.
+		$this->loop = ($loop > -1) ? $loop : 0; // Negatives would be fine for the GIF itself (all unsigned!), 
+		                                        // but better not take a chance with the PHP bit-ops...
 		$this->dis = 2; // "reset to bgnd." (http://www.matthewflickinger.com/lab/whatsinagif/animation_and_transparency.asp)
 
 		// Check if $frames is a dir; get all files in ascending order if yes (else die):
@@ -146,7 +146,7 @@ class AnimGif
 				}
 			}
 				
-			if (!is_array($frames)) { //!!
+			if (!is_array($frames)) { // i.e. scandir() failed above!
 				throw new \Exception(VERSION.': '
 					. sprintf(self::$errors['ERR05'], $frames_dir)); // $frames is expected to be a string here; see the other ERR05 case!
 			}
@@ -234,7 +234,7 @@ class AnimGif
 
 		for ($i = 0; $i < count($this->frameSources); $i++) {
 
-			// Re-use the last delay if none has been specified for the current frame.
+			// Reuse the last delay if none has been specified for the current frame.
 			if (is_array($durations)) {
 				$d = (empty($durations[$i]) ? $last_duration : $durations[$i]);
 				$last_duration = $d;
@@ -289,7 +289,7 @@ class AnimGif
 	// ===================================================================================
 
 	/**
-	 * Add the header gif string in its source
+	 * Assemble the GIF header
 	 */
 	protected function gifAddHeader()
 	{
@@ -307,7 +307,7 @@ class AnimGif
 	}
     
 	/**
-	 * Add the frame sources to the GIF string
+	 * Add frame to the GIF data
 	 * 
 	 * @param integer $i: index of frame source
 	 * @param integer $d: delay time (frame display duration)
