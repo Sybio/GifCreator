@@ -1,5 +1,5 @@
 {
-    "name": "sybio/gif-creator",
+    "name": "moroz1999/gif-creator",
     "type": "library",
     "description": "PHP class that creates animated GIF from multiple images",
     "keywords": ["gif", "animated", "creation", "encode", "PHP"],
