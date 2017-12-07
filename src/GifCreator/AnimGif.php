@@ -302,7 +302,7 @@ class AnimGif
 			$this->gif .= substr($this->frameSources[0], 6, 7);
 			$this->gif .= substr($this->frameSources[0], 13, $cmap);
 			if ($this->loop !== 1) // Only add the looping extension if really looping
-				$this->gif .= "!\xFF\x0BNETSCAPE2.0\0x03\0x01".word2bin($this->loop)."\x0";
+				$this->gif .= "!\xFF\x0BNETSCAPE2.0\x03\x01".word2bin($this->loop==0?0:$this->loop-1)."\x0";
 		}
 	}
     
