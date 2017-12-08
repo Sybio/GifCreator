@@ -1,0 +1,22 @@
+TODO:
+
+! Allow image dirs within the input list (array), too, not only instead of it.
+
+! In local testing I had a strange issue with by-frame delays: the first image eats
+  up the first two delays, and is shown for the sum of those two numbers... :-o
+  -> And I seem to be unable to reproduce it now! :-o
+
+* Warn about explicit sorting if per-frame delays are specified for a dir source?
+
+* Sync the index.php (demo & quickstart frontend) with the examples in README.md 
+  AND ALSO THE ONE AT SO!
+
+* To avoid unwanted "in-band" PHP output, I should probably disable display_errors()
+  in the whole module (restoring it on normal exit)...
+
+
+------------------------------------------------------------------------------------
+DONE:
+
+-> Release notes: https://github.com/lunakid/AnimGif/releases/
+-> See also the GitHub commit history: https://github.com/lunakid/AnimGif/commits/
