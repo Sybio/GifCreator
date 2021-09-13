@@ -94,7 +94,7 @@ class GifCreator
         
 		for ($i = 0; $i < count($frames); $i++) {
 		  
-			if (is_resource($frames[$i])) { // Resource var
+			if (is_resource($frames[$i]) || $frames[$i] instanceof \GdImage) { // Resource var
                 
                 $resourceImg = $frames[$i];
                 
